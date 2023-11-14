@@ -1,0 +1,53 @@
+# CAUTION: This is just an example file and should be adapted for all specific cases with care!
+#
+# Check the robot_middleware/config/settings_example.yaml file for explanation of the parameters
+
+robot_driver:
+  planning_group: manipulator
+  publish_vel_cmd: true
+  velocity_control:
+    base_frame: base_link
+    tool_frame: tool0
+    control_loop_frequency: 250.0
+    cartesian_limits:
+      max_linear_velocity: 0.250
+      max_angular_velocity: !degrees 60.0
+    joint_limits:
+      has_velocity_limit: true
+      max_velocity: !degrees 60.0
+      # The velocity control API in Staubli's VAL3 (server) should handle joint limits already.
+      # Anyway, having a small value here will cause warning messages when a joint position limit
+      # is reached, which could be useful.
+      stop_tolerance: !degrees 1.0
+motion_relay_handler:
+  receive_timeout: 0.1
+state_relay_handler:
+  receive_timeout: 1.0
+jog_interface:
+  receive_timeout: 0.25
+pose_tracking:
+  tcp_frame: tool0
+  goal_tolerance_linear: 0.0001
+  goal_tolerance_angular: !degrees 0.1
+  goal_settle_time: 0.1
+  receive_timeout: 0.5
+  pid_linear_x:
+    p: 3.0
+    i: 0.0
+    d: 0.0
+    i_clamp: 0.0
+  pid_linear_y:
+    p: 3.0
+    i: 0.0
+    d: 0.0
+    i_clamp: 0.0
+  pid_linear_z:
+    p: 3.0
+    i: 0.0
+    d: 0.0
+    i_clamp: 0.0
+  pid_angular:
+    p: 1.0
+    i: 0.0
+    d: 0.0
+    i_clamp: 0.0

@@ -1,0 +1,121 @@
+# Message relay handler parameters
+message_relay_handler:
+  ros__parameters:
+    # Timeout times for motion and state relays
+    motion_relay_handler_receive_timeout: 0.1 #s
+    state_relay_handler_receive_timeout:  1.0 #s
+
+# Robot middleware parameters
+robot_middleware:
+  ros__parameters:
+    robot_ip: 172.31.0.1
+    # Receive tiemout for jog commands. The jog control loop will be exited and the robot will
+    # be stopped after a receive timeout. 
+    jog_interface_receive_timeout: 0.25
+    # The TCP (tool-center-point) frame specified here will be used to track the goal pose
+    # NOTE: This is not fully implemented yet. Right now, only the tool frame will work
+    #       (which is defined in the parameter robot_driver/velocity_control/tool_frame)!
+    pose_tracking_tcp_frame: tool0
+    # Receive timeout for goal poses. The pose tracking control loop will be exited and the
+    # robot will be stopped after a receive timeout.
+    pose_tracking_receive_timeout: 0.5
+    # The control loop may also be exited before an actual receive timeout if the goal is
+    # reached within a given linear/angular tolerance for a given settle time. As long as
+    # new goals are received the settle time will be resetted to keep the loop running even
+    # if the goal is reached and the robot is settled already. Hence, the goal_settle_time
+    # parameter should be at least greater than the expected period of goal pose messages.
+    pose_tracking_goal_tolerance_linear: 1e-4           # -> 0.1 mm, loaded as meters
+    pose_tracking_goal_tolerance_angular: 0.1  # 0.1 degrees, loaded as radians in code
+    pose_tracking_goal_settle_time: 0.1                 # -> 100 ms, loaded as seconds
+    # PID controllers
+    pose_tracking_pid_linear_x_p: 1.0
+    pose_tracking_pid_linear_x_i: 0.1
+    pose_tracking_pid_linear_x_d: 0.0
+    pose_tracking_pid_linear_x_i_clamp: 0.010
+    pose_tracking_pid_linear_y_p: 1.0
+    pose_tracking_pid_linear_y_i: 0.1
+    pose_tracking_pid_linear_y_d: 0.0
+    pose_tracking_pid_linear_y_i_clamp: 0.010
+    pose_tracking_pid_linear_z_p: 1.0
+    pose_tracking_pid_linear_z_i: 0.1
+    pose_tracking_pid_linear_z_d: 0.0
+    pose_tracking_pid_linear_z_i_clamp: 0.010
+    pose_tracking_pid_angular_p: 1.0
+    pose_tracking_pid_angular_i: 0.1
+    pose_tracking_pid_angular_d: 0.0
+    pose_tracking_pid_angular_i_clamp: 10.0
+
+    # The planning group containing the relevant joints of the controlled robot
+    # NOTE: Right now, it is assumed and required that the planning group is a chain between the
+    #       base frame and the tool frame (as described in velocity_control/*_frame).
+    robot_driver_planning_group: manipulator
+    # Flag to specify whether to publish the raw/filtered velocity commands processed within the
+    # RobotDriver class (for debugging/analysis)
+    robot_driver_publish_vel_cmd: true
+    # Motion and state ports used to connect to the robot
+    # OPTIONAL -> if you use custom motion and state ports, you can change them here
+    # If you use the default (which is recommended), you can leave these in comment
+    # robot_driver_motion_port: 11000
+    # robot_driver_state_port: 11002
+    # Motion and state ports used to connect to the robot
+    # OPTIONAL -> if you use custom motion and state ports, you can change them here
+    # If you use the default (which is recommended), you can leave these in comment
+    # robot_server_proxy_motion_server_port: 11000
+    # robot_server_proxy_state_server_port: 11002
+
+    # The base frame of the robot which is used as reference for the velocity commands
+    # by default (typically base_link or base). The orientation of the base frame specified
+    # here must match the orientation of the base frame used by the robot controller.
+    # The position is not relevant as long as it has a fixed transform to the real base frame.
+    velocity_control_base_frame: base
+    # The tool frame of the robot may also be used as reference (typically tool0).
+    # This must be equal to the tool frame (flange) used by the robot controller.
+    velocity_control_tool_frame: tool0
+    # The frequency of the control loop, given by the interpolation clock of the
+    # robot controller
+    velocity_control_control_loop_frequency: 250.0  # Hz (for a interpolation cycle of 4 ms)
+    
+    # The cartesian limits specify the absolute maximum velocities for linear/angular
+    # motion. When multiple linear axes are involved, then the absolute velocity
+    # v_abs = sqrt(v_x^2 + v_y^2 + v_z^2) will be limited. When multiple angular axes
+    # are involved, then the absolute angle of the rotation vector (axis-angle) will be
+    # limited.
+    velocity_control_max_linear_velocity: 0.250           # -> 250 mm/s, loaded as m/s
+    velocity_control_max_angular_velocity: 60.0  # -> 60 deg/s, loaded as rad/s in code
+
+    # The joint velocity limit here is applied to all joints and overwrite the nominal values if appropriate.
+    # The nominal values are retrieved from the robot_description (URDF) or rather the joint limits parameters
+    # loaded from the MoveIt config package (see corresponding joint_limits.yaml file). In any case, the maximum
+    # velocity for each joint is limited to the nominal value for safety reasons. The has_velocity_limit flag can
+    # be used to disable the limit specified here.
+    # NOTE: The joint limits will only be applied to joint velocity commands. Cartesian velocity commands are
+    #       not affected by these limits!
+    velocity_control_has_velocity_limit: true
+    velocity_control_max_velocity: 60.0  # 60 deg/s, stored as rad/s in code
+    # The stop tolerance should define a minimal absolute distance to a joint position
+    # limit where the robot could be stopped safely before hitting the hard limit.
+    # When a joint reaches this tolerance zone the robot motion will be stopped and any
+    # commands which would cause a motion in the direction of the limit will be ignored.
+    # NOTE: If the driver/API on the robot controller is taking care of the joint limits,
+    #       then this parameter may be set to a very small value or even zero (disabled).
+    velocity_control_stop_tolerance: 3.0  # 3 deg, loaded as radians in code
+
+# Motion relay handler parameters
+# [motion interface node (ROS-I)] -> [motion_relay_handler] -> [motion server (robot)]
+motion_relay_handler:
+  ros__parameters:
+    # Receive timeout for the incoming connection. Negative values or zero result in blocking.
+    # The receive timeout (callback function) is used to signal the end of a joint trajectory
+    # streaming. Hence, a proper timeout value >= 0.1 seconds should be chosen here.
+    receive_timeout: 0.1
+
+# State relay handler parameters
+# [robot state node (ROS-I)] <- [state_relay_handler] <- [state server (robot)]
+state_relay_handler:
+  ros__parameters:
+    # Receive timeout for the incoming connection. Negative values or zero result in blocking.
+    # The receive timeout may be disabled (setting a value <=0) if the timeout callback is not
+    # required.
+    receive_timeout: 1.0
+
+  

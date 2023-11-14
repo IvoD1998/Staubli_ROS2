@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="staubli">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import panda urdf file -->
+    <xacro:include filename="$(find staubli_tx2_60l_description)/urdf/staubli_tx2_60l.urdf.xacro" />
+
+    <!-- Import panda ros2_control description -->
+    <xacro:include filename="staubli_tx2_60l.ros2_control.xacro" />
+
+    <xacro:staubli_tx2_60l_ros2_control name="StaubliTX260lFakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+</robot>

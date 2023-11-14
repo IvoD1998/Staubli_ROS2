@@ -1,0 +1,12 @@
+# This service imitates the original moveit_msgs/GetMotionPlan service
+# but is reduced to a minimum for simpler usage
+
+geometry_msgs/PoseStamped goal
+string planner_id
+float64 allowed_planning_time
+float64 max_velocity_scaling_factor
+float64 max_acceleration_scaling_factor
+---
+bool success
+trajectory_msgs/JointTrajectory trajectory
+moveit_msgs/MoveItErrorCodes error_code

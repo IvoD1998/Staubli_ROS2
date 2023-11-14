@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="dataReceiver" access="public">
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
+      <Parameter name="x_sSocket" type="sio" xsi:type="element" use="reference" />
+      <Parameter name="x_nConnFlag" type="num" xsi:type="element" use="reference" />
+      <Parameter name="x_msg" type="RosSimpleMsg" xsi:type="element" use="reference" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nMsgRecvState" type="num" xsi:type="array" size="1" />
+      <Local name="l_nStartTime" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  // Copyright (c) 2016, Ocado Technology - Robotics Research Team
+  // Copyright (c) 2021, Institute for Factory Automation and Production Systems (FAPS)
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //     http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+
+
+  // state machine at initial state
+  // 0: RECEIVE_HEADER
+  // 1: DECODE_HEADER
+  // 2: RECEIVE_BODY
+  // 3: DECODE_BODY
+  // 4: PUSH_MOTION
+  // 5: HANDLE_REQUEST
+  // 6: SEND_ACK
+  l_nMsgRecvState = MsgRecvState.RECEIVE_HEADER
+
+  while (true)
+    // usually for state machines a switch-case statement is a neat implementation
+    // HOWEVER, at every iteration of while() this task is sequenced and only called
+    // after whatever ms is was defined when created.
+    // As a result, receiving one single message, pushing motion and sending ACK
+    // would take 6 * task period using switch-case statement.
+    // The desirable behaviour is to receive and decode a full message, push motion
+    // into buffer and then send ACK to client WITHIN ONE ITERATION of while(),
+    // hence the if statement sequence below
+    l_nStartTime=clock()
+
+    if (l_nMsgRecvState == MsgRecvState.RECEIVE_HEADER)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=0)
+        //call printDebug("dataReceiver: recvMsgHeader",true)
+      endIf
+      //endregion
+
+      call recvMsgHeader(x_sSocket,x_nConnFlag,x_msg,l_nMsgRecvState)
+    endIf
+
+    nHeaderTime=clock()-l_nStartTime
+
+    if (l_nMsgRecvState == MsgRecvState.DECODE_HEADER)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=1)
+        //call printDebug("dataReceiver: decodeMsgHeader",true)
+      endIf
+      //endregion
+
+      call decodeMsgHeader(x_msg,l_nMsgRecvState)
+    endIf
+
+    if (l_nMsgRecvState == MsgRecvState.RECEIVE_BODY)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=2)
+        //call printDebug("dataReceiver: recvMsgBody",true)
+      endIf
+      //endregion
+
+      call recvMsgBody(x_sSocket,x_nConnFlag,x_msg,l_nMsgRecvState)
+    endIf
+
+    if (l_nMsgRecvState == MsgRecvState.DECODE_BODY)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=3)
+        //call printDebug("dataReceiver: decodeMsgBody",true)
+      endIf
+      //endregion
+
+      call decodeMsgBody(x_msg,l_nMsgRecvState)
+    endIf
+
+    if (l_nMsgRecvState == MsgRecvState.PUSH_MOTION)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=4)
+       //call printDebug("dataReceiver: pushMotion",true)
+      endIf
+      //endregion
+
+      call pushMotion(x_msg,l_nMsgRecvState)
+    endIf
+
+    if (l_nMsgRecvState == MsgRecvState.HANDLE_REQUEST)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=4)
+        //call printDebug("dataReceiver: handleRequest",true)
+      endIf
+      //endregion
+
+      call handleRequest(x_msg,l_nMsgRecvState)
+    endIf
+
+    if (l_nMsgRecvState == MsgRecvState.SEND_ACK)
+      //region @DEBUG
+      if (bDebugMode and nDebugLevel<=5)
+        //call printDebug("dataReceiver: encode/sendAck",true)
+      endIf
+      //endregion
+
+      call encodeAck(x_msg)
+      call sendAck(x_sSocket,x_nConnFlag,x_msg,l_nMsgRecvState)
+    endIf
+
+    nElapsedTime=clock()-l_nStartTime-nHeaderTime
+
+    // assert state machine is working OK
+    if (l_nMsgRecvState<0 or l_nMsgRecvState>6)
+      popUpMsg("Data reception state machine error")
+    endIf
+
+    // sequence task
+    delay(0)
+  endWhile
+end]]></Code>
+  </Program>
+</Programs>

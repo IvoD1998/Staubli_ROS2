@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<robot name="staubli_tx2_60l" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find staubli_tx2_60l_description)/urdf/tx2_60l_macro.xacro"/>
+    <xacro:staubli_tx2_60l prefix=""/>
+
+    <!--Links-->
+        <link name="world"/>
+        <link name="ft_sensor"/>
+
+        <!--Plunger intervention-->
+        <link name="plunger_tooltip"/>
+        <link name="camera_link"/>
+
+        <!--Petri intervention-->
+        <link name="petri_tooltip"/>
+
+        <!--Stoter intervention-->
+        <link name="stoter_tooltip"/>
+
+        <!--Test links-->
+        <link name="A_1"/>
+        <link name="A_2"/>
+        <!-- <link name="B_1"/> -->
+        <!-- <link name="B_1"/> -->
+
+    <!--Joints-->
+        <joint name="world_to_robot" type="fixed">
+            <parent link="world"/>
+            <child link="base_link"/>
+            <origin xyz="0 0 0" rpy="0 0 ${radians(120)}"/>
+        </joint>
+
+        <joint name="tool0_to_ft_sensor" type="fixed">
+            <parent link="tool0"/>
+            <child link="ft_sensor"/>
+            <origin xyz="0 0 0.054" rpy="0 0 ${radians(-135)}"/>
+        </joint>
+
+        <!--Plunger intervention-->
+        <joint name="tool0_to_plunger_tooltip" type="fixed">
+            <parent link="tool0"/>
+            <child link="plunger_tooltip"/>
+            <!-- <origin xyz="0.11172 0.11172 0.220" rpy="1.5707963 0 2.3561944"/> -->
+            <!-- <origin xyz="0.1025 0.1025 0.1875" rpy="${radians(-45)} ${radians(90)} 0"/> -->
+            <origin xyz="0.09475 0.09075 0.223" rpy="${radians(-45)} ${radians(90)} 0"/>
+            <!-- <origin xyz="0 0 0.095" rpy="0 0 ${radians(45)}"/> --> <!--Plunger touch tester-->
+        </joint>
+        <joint name="tool0_to_camera" type="fixed">
+            <parent link="tool0"/>
+            <child link="camera_link"/>
+            <origin xyz="0.08386698861801538 0.0820516546504288 0.2483050217149557" 
+                    rpy="1.5975041 -0.0199403 2.3273424"/>
+        </joint>
+
+
+        <!--Petri intervention-->
+        <joint name="tool0_to_petri_tooltip" type="fixed">
+            <parent link="tool0"/>
+            <child link="petri_tooltip"/>
+            <origin xyz="0 0 0.2235" rpy="0 0 0"/>
+        </joint>
+
+        <!--Stoter intervention-->
+        <joint name="tool0_to_stoter_tooltip" type="fixed">
+            <parent link="tool0"/>
+            <child link="stoter_tooltip"/>
+            <origin xyz="0.0218 0.0218 0.1355" rpy="${radians(-45)} ${radians(90)} 0"/>
+        </joint>
+
+        <!--Test joints-->
+        <joint name="world_to_A_1" type="fixed">
+            <parent link="world"/>
+            <child link="A_1"/>
+            <origin xyz="0.6 0.1 0.4" rpy="0 ${radians(90)} 0"/>
+        </joint>
+        <joint name="world_to_A_2" type="fixed">
+            <parent link="world"/>
+            <child link="A_2"/>
+            <origin xyz="0.65 -0.3 0.3" rpy="0 ${radians(90)} 0"/>
+        </joint>
+</robot>
