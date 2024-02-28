@@ -23,9 +23,14 @@ Copy the contents of the _staubli_val3_driver/val3_ folder to the CS9 controller
 The TCP sockets on the robot controller must be set correctly prior to use. 
 from the teach pendant home:
 1) IO --> Socket --> TCP Servers --> "+"
-2) Configure two new sockets:
-  * Name: Feedback, Port: 11002, Timeout: -1, End of string: 13, Nagle: Off
-  * Name: Motion, Port: 11000, Timeout: -1, End of string: 13, Nagle: Off
+2) Configure the following new sockets:
+   
+    | Name   | Port  | Timeout |End of string | Nagle |
+    | ---    | ---   | ---     | ---          | ---   |
+    | Motion | 11000 | -1      | 13           | Off   |
+    | System | 11001 | -1      | 13           | Off   |
+    | State  | 11002 | -1      | 13           | Off   |
+    | IO     | 11003 | -1      | 13           | Off   |
 
 ## How to use
 ### Staubli-side:
