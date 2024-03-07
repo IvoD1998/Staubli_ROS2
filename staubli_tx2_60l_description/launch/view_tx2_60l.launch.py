@@ -12,7 +12,7 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("staubli_tx2_60l_description"),
             "urdf",
-            "staubli_tx2_60l.urdf.xacro",
+            "tx2_60l.xacro",
         )
     )
     robot_description = {"robot_description": robot_description_config.toxml()}

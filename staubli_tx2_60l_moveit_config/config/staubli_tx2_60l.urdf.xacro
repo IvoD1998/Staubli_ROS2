@@ -3,9 +3,9 @@
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
 
     <!-- Import panda urdf file -->
-    <xacro:include filename="$(find staubli_tx2_60l_description)/urdf/staubli_tx2_60l.urdf.xacro" />
+    <xacro:include filename="$(find staubli_tx2_60l_description)/urdf/tx2_60l.xacro" />
 
-    <!-- Import panda ros2_control description -->
+    <!-- Import staubli ros2_control description -->
     <xacro:include filename="staubli_tx2_60l.ros2_control.xacro" />
 
     <xacro:staubli_tx2_60l_ros2_control name="StaubliTX260lFakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
