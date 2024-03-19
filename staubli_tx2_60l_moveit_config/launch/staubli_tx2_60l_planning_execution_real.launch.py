@@ -24,7 +24,7 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("staubli_tx2_60l_moveit_config"),
             "config",
-            "staubli_tx2_60l_controllers_real.yaml",
+            "staubli_tx2_60l_controllers.yaml",
         )
     )
     moveit_controllers = {
@@ -60,7 +60,7 @@ def generate_launch_description():
     )
     #RViz2
     rviz_base = os.path.join(get_package_share_directory("staubli_tx2_60l_moveit_config"), "config")
-    rviz_full_config = os.path.join(rviz_base, "staubli_tx2_60l_moveit_config.rviz")
+    rviz_full_config = os.path.join(rviz_base, "moveit.rviz")
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",

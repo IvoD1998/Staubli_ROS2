@@ -1,4 +1,5 @@
-# Default initial positions for the panda arm's ros2_control fake system
+# Default initial positions for the staubli_tx2_60l's ros2_control fake system
+
 initial_positions:
   joint_1: 0.0
   joint_2: 0.0
