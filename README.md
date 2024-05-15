@@ -5,7 +5,7 @@ ROS2 port of the Staubli_VAL3_ROS driver with all components it requires, expand
 This repository contains a port for ROS2 for everything that is required to use Staubli robots using the CS9 controller, based on the ROS1 driver (https://github.com/ros-industrial/staubli_val3_driver/tree/master).
 This includes a port of the ROS simple message package and everything it requires (https://github.com/ros-industrial/industrial_core).
 Also included is a port of FAU-FAPS adaptive_motion_middleware package to enable velocity and pose tracking control.
-However, to use these features, you will need to install 'velocity' expansion for the CS9 controller.
+However, to use these features, you will need to install 'motion' and 'velocity' expansion for the CS9 controller.
 For more details about this functionality, visit the original adaptive motion middleware repo at:
   https://github.com/FAU-FAPS/adaptive_motion_control.git
   
