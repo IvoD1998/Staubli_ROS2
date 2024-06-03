@@ -111,7 +111,7 @@ bool JointTrajectoryInterface::init(SmplMsgConnection* connection, const std::ve
 
   // try to read velocity limits from URDF, if none specified
   ParamUtils pu;
-  if (joint_vel_limits_.empty() && !pu.getJointVelocityLimits("rviz2", "robot_description", joint_vel_limits_))
+  if (joint_vel_limits_.empty() && !pu.getJointVelocityLimits("moveit_simple_controller_manager", "robot_description", joint_vel_limits_))
     RCLCPP_WARN(this->get_logger(), "Unable to read velocity limits from 'robot_description' param.  Velocity validation disabled.");
 
 
@@ -376,8 +376,10 @@ bool JointTrajectoryInterface::is_valid(const trajectory_msgs::msg::JointTraject
       }
 
       if (std::abs(pt.velocities[j]) > max_vel->second)
+      {
         RCLCPP_ERROR(this->get_logger(), "Validation failed: Max velocity exceeded for trajectory pt %d, joint '%s'", i, traj.joint_names[j].c_str());
         return false;
+      }
     }
     // check for valid timestamp
     if ((i > 0) && ((pt.time_from_start.sec == 0) && (pt.time_from_start.nanosec == 0)))
