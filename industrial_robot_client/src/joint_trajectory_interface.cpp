@@ -281,7 +281,7 @@ bool JointTrajectoryInterface::calc_velocity(const trajectory_msgs::msg::JointTr
   // find largest velocity-ratio (closest to max joint-speed)
   int max_idx = std::max_element(vel_ratios.begin(), vel_ratios.end()) - vel_ratios.begin();
   
-  if (vel_ratios[max_idx] > 0)
+  if (vel_ratios[max_idx] > 0.001)
     *rbt_velocity = vel_ratios[max_idx];
   else
   {
