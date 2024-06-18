@@ -6,6 +6,7 @@ This repository contains a port for ROS2 for everything that is required to use 
 This includes a port of the ROS simple message package and everything it requires (https://github.com/ros-industrial/industrial_core).
 Also included is a port of FAU-FAPS adaptive_motion_middleware package to enable velocity and pose tracking control.
 However, to use these features, you will need to install 'motion' and 'velocity' expansion for the CS9 controller.
+These can be downloaded via the Staubli software center after creating a Staubli account. They should be installed and enabled on the controller via VAL3, and transferred to the physical robot by placing the corresponding .so file in the app folder of the controller. 
 For more details about this functionality, visit the original adaptive motion middleware repo at:
   https://github.com/FAU-FAPS/adaptive_motion_control.git
   
