@@ -57,8 +57,8 @@ There are 3 different options for using this package:
     
     (For illustrative purposes, the entire launch sequence is written down here, in practice it is recommended to combine this in one launch file)
     ```
-    1) ros2 launch robot_middleware robot_middleware.launch.py
-    2) ros2 launch staubli_val3_driver robot_state.launch.py robot_ip:=127.0.1
+    1) ros2 launch robot_middleware robot_middleware.launch.py robot_ip:=<ROBOT_IP>
+    2) ros2 launch staubli_val3_driver robot_state.launch.py robot_ip:=127.0.0.1
     3) ros2 launch staubli_val3_driver motion_streaming_interface.launch.py robot_ip:=127.0.0.1
     4) ros2 launch staubli_val3_driver io_interface.launch.py robot_ip:=<ROBOT_IP>
     5) ros2 launch staubli_val3_driver system_interface.launch.py robot_ip:=<ROBOT_IP>
