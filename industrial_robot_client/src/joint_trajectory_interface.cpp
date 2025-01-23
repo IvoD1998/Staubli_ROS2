@@ -179,6 +179,11 @@ bool JointTrajectoryInterface::trajectory_to_msgs(const trajectory_msgs::msg::Jo
   {
     ros_JointTrajPt rbt_pt, xform_pt;
     double vel, duration;
+    bool final = false;
+    if(i == traj->points.size()-1)
+    {
+      final = true;
+    }
 
     // select / reorder joints for sending to robot
     if (!select(traj->joint_names, traj->points[i], this->all_joint_names_, &rbt_pt))
@@ -189,7 +194,7 @@ bool JointTrajectoryInterface::trajectory_to_msgs(const trajectory_msgs::msg::Jo
       return false;
 
     // reduce velocity to a single scalar, for robot command
-    if (!calc_speed(xform_pt, &vel, &duration))
+    if (!calc_speed(xform_pt, &vel, &duration, final))
       return false;
 
     JointTrajPtMessage msg = create_message(i, xform_pt.positions, vel, duration);
@@ -240,9 +245,9 @@ bool JointTrajectoryInterface::select(const std::vector<std::string>& ros_joint_
   return true;
 }
 
-bool JointTrajectoryInterface::calc_speed(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity, double* rbt_duration)
+bool JointTrajectoryInterface::calc_speed(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity, double* rbt_duration, const bool &final)
 {
-	return calc_velocity(pt, rbt_velocity) && calc_duration(pt, rbt_duration);
+	return calc_velocity(pt, rbt_velocity, final) && calc_duration(pt, rbt_duration);
 }
 
 // default velocity calculation computes the %-of-max-velocity for the "critical joint" (closest to velocity-limit)
@@ -251,7 +256,7 @@ bool JointTrajectoryInterface::calc_speed(const trajectory_msgs::msg::JointTraje
 // NOTE: this calculation uses the maximum joint speeds from the URDF file, which may differ from those defined on
 // the physical robot.  These differences could lead to different actual movement velocities than intended.
 // Behavior should be verified on a physical robot if movement velocity is critical.
-bool JointTrajectoryInterface::calc_velocity(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity)
+bool JointTrajectoryInterface::calc_velocity(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity, const bool &final)
 {
   std::vector<double> vel_ratios;
 
@@ -281,11 +286,14 @@ bool JointTrajectoryInterface::calc_velocity(const trajectory_msgs::msg::JointTr
   // find largest velocity-ratio (closest to max joint-speed)
   int max_idx = std::max_element(vel_ratios.begin(), vel_ratios.end()) - vel_ratios.begin();
   
-  if (vel_ratios[max_idx] > 0.001)
+  if (vel_ratios[max_idx] > default_vel_ratio_)
+  {
     *rbt_velocity = vel_ratios[max_idx];
+    RCLCPP_INFO(this->get_logger(), "vel ratio: %s", std::to_string(*rbt_velocity).c_str());
+  }
   else
   {
-    RCLCPP_WARN_ONCE(this->get_logger(), "Joint velocity-limits unspecified.  Using default velocity-ratio.");
+    RCLCPP_WARN(this->get_logger(), "Joint velocity-limits unspecified.  Using default velocity-ratio.");
     *rbt_velocity = default_vel_ratio_;
   }
 
@@ -293,8 +301,12 @@ bool JointTrajectoryInterface::calc_velocity(const trajectory_msgs::msg::JointTr
   {
     RCLCPP_WARN(this->get_logger(), "computed velocity (%.1f %%) is out-of-range.  Clipping to [0-100%%]", *rbt_velocity * 100);
     *rbt_velocity = std::min(1.0, std::max(0.0, *rbt_velocity));  // clip to [0,1]
+  }  
+  if(final)
+  {
+    RCLCPP_WARN(this->get_logger(), "Marking final traj point");
+    *rbt_velocity += 2;
   }
-  
   return true;
 }
 
@@ -402,4 +414,3 @@ void JointTrajectoryInterface::jointStateCB(const sensor_msgs::msg::JointState::
 
 } //joint_trajectory_interface
 } //industrial_robot_client
-

@@ -54,7 +54,7 @@
         //call printDebug("dataReceiver: recvMsgHeader",true)
       endIf
       //endregion
-
+ 
       call recvMsgHeader(x_sSocket,x_nConnFlag,x_msg,l_nMsgRecvState)
     endIf
 
@@ -86,7 +86,8 @@
         //call printDebug("dataReceiver: decodeMsgBody",true)
       endIf
       //endregion
-
+      // indicate that the trajectory has not been fully processed
+      rosStatusMsg.robotStatus.nTrajectoryComplete=0
       call decodeMsgBody(x_msg,l_nMsgRecvState)
     endIf
 
@@ -96,7 +97,8 @@
        //call printDebug("dataReceiver: pushMotion",true)
       endIf
       //endregion
-
+      // Reset the completion of the trajectory execution
+      rosStatusMsg.robotStatus.nTrajectoryComplete = 0
       call pushMotion(x_msg,l_nMsgRecvState)
     endIf
 

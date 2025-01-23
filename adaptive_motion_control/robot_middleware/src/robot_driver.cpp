@@ -96,15 +96,26 @@ void RobotDriver::initSetup()
     // clang-format off
     if (joint_model->getType() != moveit::core::JointModel::REVOLUTE ||
         joint_model->getVariableCount() < 1 || joint_model->getVariableCount() > 1)
-      throw std::runtime_error("Only revolute joints with one variable (single DOF) are supported\n"
-                               "  group:     " + joint_model_group_->getName() + "\n"
-                               "  joint:     " + joint_model->getName()        + "\n"
-                               "  type:      " + joint_model->getTypeName()    + "\n"
-                               "  variables: " + std::to_string(joint_model->getVariableCount()));
+    {
+      std::stringstream ss;
+      ss << "Only revolute joints with one variable (single DOF) are supported\n"
+            "  group:     " + joint_model_group_->getName() + "\n"
+            "  joint:     " + joint_model->getName()        + "\n"
+            "  type:      " + joint_model->getTypeName()    + "\n"
+            "  variables: " + std::to_string(joint_model->getVariableCount());
+      RCLCPP_ERROR(node_->get_logger(), ss.str().c_str());
+    }
+    else
+    {
+      joint_names_.push_back(joint_model->getName());
+      joint_limits_.push_back(joint_model->getVariableBounds()[0]);
+    }
+      // throw std::runtime_error("Only revolute joints with one variable (single DOF) are supported\n"
+      //                          "  group:     " + joint_model_group_->getName() + "\n"
+      //                          "  joint:     " + joint_model->getName()        + "\n"
+      //                          "  type:      " + joint_model->getTypeName()    + "\n"
+      //                          "  variables: " + std::to_string(joint_model->getVariableCount()));
     // clang-format on
-
-    joint_names_.push_back(joint_model->getName());
-    joint_limits_.push_back(joint_model->getVariableBounds()[0]);
   }
 
   // populate joint limits map

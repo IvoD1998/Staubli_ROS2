@@ -166,7 +166,7 @@ protected:
    *
    * \return true on success, false otherwise
    */
-  virtual bool calc_speed(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity, double* rbt_duration);
+  virtual bool calc_speed(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity, double* rbt_duration, const bool &final);
 
   /**
    * \brief Reduce the ROS velocity commands (per-joint velocities) to a single scalar for communication to the robot.
@@ -177,7 +177,7 @@ protected:
    *
    * \return true on success, false otherwise
    */
-  virtual bool calc_velocity(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity);
+  virtual bool calc_velocity(const trajectory_msgs::msg::JointTrajectoryPoint& pt, double* rbt_velocity, const bool &final);
 
   /**
    * \brief Compute the expected move duration for communication to the robot.
@@ -239,6 +239,7 @@ protected:
   SmplMsgConnection* connection_;
   rclcpp::Subscription <sensor_msgs::msg::JointState>::SharedPtr sub_cur_pos_;  // handle for joint-state topic subscription
   rclcpp::Subscription <trajectory_msgs::msg::JointTrajectory>::SharedPtr sub_joint_trajectory_; // handle for joint-trajectory topic subscription
+  rclcpp::Publisher <trajectory_msgs::msg::JointTrajectory>::SharedPtr test_pub_;
 
   rclcpp::Service <industrial_msgs::srv::CmdJointTrajectory>::SharedPtr srv_joint_trajectory_;  // handle for joint-trajectory service
   rclcpp::Service <industrial_msgs::srv::StopMotion>::SharedPtr srv_stop_motion_;   // handle for stop_motion service

@@ -41,8 +41,7 @@ namespace joint_relay_handler
 {
 
 JointRelayHandler::JointRelayHandler() : Node("joint_relay_handler")
-{
-};
+{}
 
 bool JointRelayHandler::init(industrial::smpl_msg_connection::SmplMsgConnection *connection, 
                              std::vector<std::string>& joint_names)

@@ -77,6 +77,7 @@ bool RobotStatusRelayHandler::internalCB(industrial::robot_status_message::Robot
   status.in_motion.val = industrial::robot_status::TriStates::toROSMsgEnum(in.status_.getInMotion());
   status.mode.val = industrial::robot_status::RobotModes::toROSMsgEnum(in.status_.getMode());
   status.motion_possible.val = industrial::robot_status::TriStates::toROSMsgEnum(in.status_.getMotionPossible());
+  status.trajectory_complete.val = industrial::robot_status::TriStates::toROSMsgEnum(in.status_.getTrajectoryComplete());
   
   pub_robot_status_->publish(status);
 

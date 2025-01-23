@@ -9,6 +9,7 @@
       <Local name="l_motion" type="MotionCmd" xsi:type="array" size="1" />
       <Local name="l_nElems" type="num" xsi:type="array" size="1" />
       <Local name="l_nTime" type="num" xsi:type="array" size="1" />
+      <Local name="l_bFinalPoint" type="bool" xsi:type="array" size="1" />
     </Locals>
     <Code><![CDATA[begin
   // Copyright (c) 2016, Ocado Technology - Robotics Research Team
@@ -32,13 +33,12 @@
 
   while (true)
     // check connection status, and whether to stop motion
-    if (nConnFlagMotion == 1 and nConnFlagState == 1 and bStopNow == false)
-
+    if(nConnFlagMotion == 1 and nConnFlagState == 1 and bStopNow == false)
       // process trajectory point from trajectory buffer
       call libQueueFuncs:getNumElems(qTrajPtBuffer, l_nElems)
-      if (l_nElems > 0)
+      if(l_nElems > 0)
         call libQueueFuncs:pop(qTrajPtBuffer,l_mTrajPt, l_bFlag)
-        if (l_bFlag == true)
+        if(l_bFlag == true)
           nPtsPopped = nPtsPopped + 1
           call libQueueFuncs:push(qMoveBuffer,l_mTrajPt,l_bFlag)
         endIf
@@ -47,10 +47,21 @@
       // process motion command from move buffer
       // @TODO move buffer should have elements previously interpolated to ensure they are 4 ms apart
       call libQueueFuncs:getNumElems(qMoveBuffer, l_nElems)
-      if (l_nElems > 0)
+      if(l_nElems > 0)
         call libQueueFuncs:pop(qMoveBuffer,l_motion,l_bFlag)
-        if (l_bFlag == true)
+        if(l_bFlag == true)
           nMovePts = nMovePts + 1
+          if(l_motion.mDesc.vel > 2)
+            logMsg("Trajectory endpoint reached")
+            l_motion.mDesc.vel = limit(((l_motion.mDesc.vel-2)*100), 0, 100)
+            l_motion.mDesc.blend = off
+            l_motion.mDesc.leave = 10
+            l_motion.mDesc.reach = 10
+            l_bFinalPoint = true
+          else
+            l_motion.mDesc.vel = limit(((l_motion.mDesc.vel)*100), 0, 100)
+            l_bFinalPoint = false
+          endIf
           // contrary to what we did earlier, we unconditionally add the traj pt to the motion queue:
           // there doesn't appear to be a way to compare the 'current pose' of the robot to the pts
           // in the trajectory at the appropriate time (ie: when the robot is in motion and about to
@@ -59,8 +70,13 @@
           // always be a delay in the data coming out of herej() and the actual pose of the robot.
           // @TODO potentially set move id according to sequence value
           nMoveId = movej(l_motion.jJointRx, tTool, l_motion.mDesc)
-
-          if (bDebugMode and nDebugLevel<=6)
+          
+          if(l_bFinalPoint == true)
+            // Confirm the completion of the trajectory execution
+            rosStatusMsg.robotStatus.nTrajectoryComplete = 1
+            waitEndMove()
+          endIf
+          if(bDebugMode and nDebugLevel<=6)
             l_jTmp=l_motion.jJointRx
             //call printDebug("motionControl: movej() = "+toString("",nMoveId),true)
             //call printDebug("Joint:  "+toString("",l_jTmp.j1)+" "+toString("",l_jTmp.j2)+" "+toString("",l_jTmp.j3)+" "+toString("",l_jTmp.j4)+" "+toString("",l_jTmp.j5)+" "+toString("",l_jTmp.j6),false)
@@ -82,9 +98,10 @@
       // debug
       nPtsPopped = 0
       nMovePts = 0
+      nTotalTrajPoint = 0
 
       // debug
-      if (bDebugMode and nDebugLevel==6)
+      if(bDebugMode and nDebugLevel==6)
         //call printDebug("motionControl: resetMotion()",true)
         //call printDebug("bStopNow: "+toString("",sel(bStopNow,1,0))+" inConn: "+toString("",nConnFlagMotion)+" outConn: "+toString("",nConnFlagState),false)
       endIf
@@ -93,7 +110,7 @@
       bStopNow = false
     endIf
 
-    // store actual move id (progress)
+      // store actual move id (progress)
     nMotionProgress = getMoveId()
 
     // sequence task

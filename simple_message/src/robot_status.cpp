@@ -125,11 +125,11 @@ RobotStatus::~RobotStatus(void)
 void RobotStatus::init()
 {
   this->init(TriStates::TS_UNKNOWN, TriStates::TS_UNKNOWN, 0, TriStates::TS_UNKNOWN,
-             TriStates::TS_UNKNOWN, RobotModes::UNKNOWN, TriStates::TS_UNKNOWN);
+             TriStates::TS_UNKNOWN, RobotModes::UNKNOWN, TriStates::TS_UNKNOWN, TriStates::TS_UNKNOWN);
 }
 
 void RobotStatus::init(TriState drivesPowered, TriState eStopped, industrial::shared_types::shared_int errorCode,
-                       TriState inError, TriState inMotion, RobotMode mode, TriState motionPossible)
+                       TriState inError, TriState inMotion, RobotMode mode, TriState motionPossible, TriState trajectoryComplete)
 {
   this->setDrivesPowered(drivesPowered);
   this->setEStopped(eStopped);
@@ -138,6 +138,7 @@ void RobotStatus::init(TriState drivesPowered, TriState eStopped, industrial::sh
   this->setInMotion(inMotion);
   this->setMode(mode);
   this->setMotionPossible(motionPossible);
+  this->setTrajectoryComplete(trajectoryComplete);
 }
 
 void RobotStatus::copyFrom(RobotStatus &src)
@@ -149,13 +150,14 @@ void RobotStatus::copyFrom(RobotStatus &src)
   this->setInMotion(src.getInMotion());
   this->setMode(src.getMode());
   this->setMotionPossible(src.getMotionPossible());
+  this->setTrajectoryComplete(src.getTrajectoryComplete());
 }
 
 bool RobotStatus::operator==(RobotStatus &rhs)
 {
   return this->drives_powered_ == rhs.drives_powered_ && this->e_stopped_ == rhs.e_stopped_
       && this->error_code_ == rhs.error_code_ && this->in_error_ == rhs.in_error_ && this->in_motion_ == rhs.in_motion_
-      && this->mode_ == rhs.mode_ && this->motion_possible_ == rhs.motion_possible_;
+      && this->mode_ == rhs.mode_ && this->motion_possible_ == rhs.motion_possible_ && this->trajectory_complete_ == rhs.trajectory_complete_;
 }
 
 bool RobotStatus::load(industrial::byte_array::ByteArray *buffer)
@@ -166,7 +168,7 @@ bool RobotStatus::load(industrial::byte_array::ByteArray *buffer)
 
   if (buffer->load(this->drives_powered_) && buffer->load(this->e_stopped_) && buffer->load(this->error_code_)
       && buffer->load(this->in_error_) && buffer->load(this->in_motion_) && buffer->load(this->mode_)
-      && buffer->load(this->motion_possible_))
+      && buffer->load(this->motion_possible_) && buffer->load(this->trajectory_complete_))
   {
 
     //RCLCPP_INFO(rclcpp::get_logger("robot_status"), "Robot status successfully loaded");
@@ -186,7 +188,7 @@ bool RobotStatus::unload(industrial::byte_array::ByteArray *buffer)
   bool rtn = false;
 
   //RCLCPP_INFO(rclcpp::get_logger("robot_status"), "Executing robot status unload");
-  if (buffer->unload(this->motion_possible_) && buffer->unload(this->mode_) && buffer->unload(this->in_motion_)
+  if (buffer->unload(this->trajectory_complete_) && buffer->unload(this->motion_possible_) && buffer->unload(this->mode_) && buffer->unload(this->in_motion_)
       && buffer->unload(this->in_error_) && buffer->unload(this->error_code_) && buffer->unload(this->e_stopped_)
       && buffer->unload(this->drives_powered_))
   {

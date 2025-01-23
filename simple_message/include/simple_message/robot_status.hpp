@@ -109,6 +109,8 @@ typedef TriStates::TriState TriState;
  *   in_motion           (industrial::shared_types::shared_int)    4  bytes
  *   mode                (industrial::shared_types::shared_int)    4  bytes
  *   motion_possible     (industrial::shared_types::shared_int)    4  bytes
+ *   trajectory_complete (industrial::shared_types::shared_int)    4  bytes
+
  *
  * THIS CLASS IS NOT THREAD-SAFE
  *
@@ -141,7 +143,7 @@ void init();
  *
  */
 void init(TriState drivesPowered, TriState eStopped, industrial::shared_types::shared_int errorCode, TriState inError,
-          TriState inMotion, RobotMode mode, TriState motionPossible);
+          TriState inMotion, RobotMode mode, TriState motionPossible, TriState trajectoryComplete);
 
 TriState getDrivesPowered()
 {
@@ -176,6 +178,11 @@ RobotMode getMode()
 TriState getMotionPossible()
 {
   return TriState(motion_possible_);
+}
+
+TriState getTrajectoryComplete()
+{
+  return TriState(trajectory_complete_);
 }
 
 void setDrivesPowered(TriState drivesPowered)
@@ -213,6 +220,11 @@ void setMotionPossible(TriState motionPossible)
   this->motion_possible_ = motionPossible;
 }
 
+void setTrajectoryComplete(TriState trajectoryComplete)
+{
+  this->trajectory_complete_ = trajectoryComplete;
+}
+
 /**
  * \brief Copies the passed in value
  *
@@ -232,7 +244,7 @@ bool load(industrial::byte_array::ByteArray *buffer);
 bool unload(industrial::byte_array::ByteArray *buffer);
 unsigned int byteLength()
 {
-  return 7 * sizeof(industrial::shared_types::shared_int);
+  return 8 * sizeof(industrial::shared_types::shared_int);
 }
 
 private:
@@ -271,6 +283,11 @@ industrial::shared_types::shared_int in_error_;
  * \brief error code (non-zero is error)
  */
 industrial::shared_types::shared_int error_code_;
+
+/**
+ * \brief all trajectory points executed 
+ */
+industrial::shared_types::shared_int trajectory_complete_;
 
 };
 

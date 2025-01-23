@@ -27,5 +27,9 @@ industrial_msgs/TriState in_motion
 # or may not be affected (see motion_possible)
 industrial_msgs/TriState in_error
 
+# Trajectory completion: True if every trajectory point has been executed, false otherwise
+# or may not be affected (see motion_possible)
+industrial_msgs/TriState trajectory_complete
+
 # Error code: Vendor specific error code (non zero indicates error)
 int32 error_code

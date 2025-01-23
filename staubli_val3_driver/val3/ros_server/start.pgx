@@ -73,6 +73,7 @@
 
   nPtsPopped=0
   nMovePts=0
+  nTotalTrajPoint=0
 
   // flush buffers of sockets
   clearBuffer(siTcpIpIO)
@@ -97,7 +98,7 @@
       popUpMsg("Power must be enabled manually")
     endIf
   endIf
-  
+
   // reset motion, potentially setting a start joint position for calling autoConnect() in the future
   resetMotion()
 

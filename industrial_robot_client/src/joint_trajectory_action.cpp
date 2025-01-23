@@ -452,7 +452,7 @@ private:
             // be moving.  The current robot driver calls a motion stop if it receives
             // a new trajectory while it is still moving.  If the driver is not publishing
             // the motion state (i.e. old driver), this will still work, but it warns you.
-            if (last_robot_status_->in_motion.val == industrial_msgs::msg::TriState::FALSE)
+            if (last_robot_status_->in_motion.val == industrial_msgs::msg::TriState::FALSE && last_robot_status_->trajectory_complete.val == industrial_msgs::msg::TriState::TRUE)
             {
                 RCLCPP_INFO(this->get_logger(), "Inside goal constraints - stopped moving-  return success for action");
                 has_active_goal_ = false;

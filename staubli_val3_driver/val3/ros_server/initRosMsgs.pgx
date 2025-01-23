@@ -45,7 +45,7 @@
 
   // Robot status message (ID 13)
   // prefix length = 12 + 28
-  rosStatusMsg.prefix.nLength=40
+  rosStatusMsg.prefix.nLength=44
   rosStatusMsg.header.nMsgType=13
   rosStatusMsg.header.nCommType=1
   rosStatusMsg.header.nReplyCode=0

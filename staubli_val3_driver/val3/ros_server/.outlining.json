@@ -2,92 +2,6 @@
   "programs": [
     {
       "mode": 3,
-      "name": "dataReceiver",
-      "nodes": [
-        {
-          "start": 978,
-          "end": 3843,
-          "isCollapsed": false
-        },
-        {
-          "start": 1596,
-          "end": 1883,
-          "isCollapsed": false
-        },
-        {
-          "start": 1676,
-          "end": 1784,
-          "isCollapsed": false
-        },
-        {
-          "start": 1927,
-          "end": 2195,
-          "isCollapsed": false
-        },
-        {
-          "start": 2006,
-          "end": 2116,
-          "isCollapsed": false
-        },
-        {
-          "start": 2201,
-          "end": 2482,
-          "isCollapsed": false
-        },
-        {
-          "start": 2279,
-          "end": 2385,
-          "isCollapsed": false
-        },
-        {
-          "start": 2488,
-          "end": 2750,
-          "isCollapsed": false
-        },
-        {
-          "start": 2565,
-          "end": 2673,
-          "isCollapsed": false
-        },
-        {
-          "start": 2756,
-          "end": 3011,
-          "isCollapsed": false
-        },
-        {
-          "start": 2833,
-          "end": 2937,
-          "isCollapsed": false
-        },
-        {
-          "start": 3017,
-          "end": 3282,
-          "isCollapsed": false
-        },
-        {
-          "start": 3097,
-          "end": 3205,
-          "isCollapsed": false
-        },
-        {
-          "start": 3288,
-          "end": 3592,
-          "isCollapsed": false
-        },
-        {
-          "start": 3362,
-          "end": 3471,
-          "isCollapsed": false
-        },
-        {
-          "start": 3691,
-          "end": 3797,
-          "isCollapsed": false
-        }
-      ]
-    },
-    {
-      "mode": 3,
       "name": "dataStreamer",
       "nodes": [
         {
@@ -443,57 +357,6 @@
     },
     {
       "mode": 3,
-      "name": "motionControl",
-      "nodes": [
-        {
-          "start": 764,
-          "end": 3846,
-          "isCollapsed": false
-        },
-        {
-          "start": 840,
-          "end": 3726,
-          "isCollapsed": false
-        },
-        {
-          "start": 1038,
-          "end": 1278,
-          "isCollapsed": false
-        },
-        {
-          "start": 1129,
-          "end": 1266,
-          "isCollapsed": false
-        },
-        {
-          "start": 1497,
-          "end": 3097,
-          "isCollapsed": false
-        },
-        {
-          "start": 1584,
-          "end": 3085,
-          "isCollapsed": false
-        },
-        {
-          "start": 2352,
-          "end": 3071,
-          "isCollapsed": false
-        },
-        {
-          "start": 3102,
-          "end": 3716,
-          "isCollapsed": false
-        },
-        {
-          "start": 3399,
-          "end": 3667,
-          "isCollapsed": false
-        }
-      ]
-    },
-    {
-      "mode": 3,
       "name": "motionCtrlVel",
       "nodes": [
         {
@@ -589,257 +452,6 @@
         {
           "start": 3549,
           "end": 3817,
-          "isCollapsed": false
-        }
-      ]
-    },
-    {
-      "mode": 3,
-      "name": "pushMotion",
-      "nodes": [
-        {
-          "start": 832,
-          "end": 1079,
-          "isCollapsed": false
-        },
-        {
-          "start": 1163,
-          "end": 9412,
-          "isCollapsed": false
-        },
-        {
-          "start": 1178,
-          "end": 6061,
-          "isCollapsed": false
-        },
-        {
-          "start": 1213,
-          "end": 1943,
-          "isCollapsed": false
-        },
-        {
-          "start": 1950,
-          "end": 2878,
-          "isCollapsed": false
-        },
-        {
-          "start": 2911,
-          "end": 4481,
-          "isCollapsed": false
-        },
-        {
-          "start": 4488,
-          "end": 5694,
-          "isCollapsed": false
-        },
-        {
-          "start": 4653,
-          "end": 5682,
-          "isCollapsed": false
-        },
-        {
-          "start": 4715,
-          "end": 4847,
-          "isCollapsed": false
-        },
-        {
-          "start": 4856,
-          "end": 5439,
-          "isCollapsed": false
-        },
-        {
-          "start": 5448,
-          "end": 5660,
-          "isCollapsed": false
-        },
-        {
-          "start": 5580,
-          "end": 5660,
-          "isCollapsed": false
-        },
-        {
-          "start": 5731,
-          "end": 6047,
-          "isCollapsed": false
-        },
-        {
-          "start": 5793,
-          "end": 6015,
-          "isCollapsed": false
-        },
-        {
-          "start": 6178,
-          "end": 9404,
-          "isCollapsed": false
-        },
-        {
-          "start": 6213,
-          "end": 7728,
-          "isCollapsed": false
-        },
-        {
-          "start": 6403,
-          "end": 7716,
-          "isCollapsed": false
-        },
-        {
-          "start": 6506,
-          "end": 7702,
-          "isCollapsed": false
-        },
-        {
-          "start": 6617,
-          "end": 6923,
-          "isCollapsed": false
-        },
-        {
-          "start": 7160,
-          "end": 7346,
-          "isCollapsed": false
-        },
-        {
-          "start": 7300,
-          "end": 7330,
-          "isCollapsed": false
-        },
-        {
-          "start": 7383,
-          "end": 7680,
-          "isCollapsed": false
-        },
-        {
-          "start": 7761,
-          "end": 8186,
-          "isCollapsed": false
-        },
-        {
-          "start": 8042,
-          "end": 8154,
-          "isCollapsed": false
-        },
-        {
-          "start": 8193,
-          "end": 9039,
-          "isCollapsed": false
-        },
-        {
-          "start": 8280,
-          "end": 9027,
-          "isCollapsed": false
-        },
-        {
-          "start": 8408,
-          "end": 8523,
-          "isCollapsed": false
-        },
-        {
-          "start": 8554,
-          "end": 9013,
-          "isCollapsed": false
-        },
-        {
-          "start": 8875,
-          "end": 8991,
-          "isCollapsed": false
-        },
-        {
-          "start": 9076,
-          "end": 9390,
-          "isCollapsed": false
-        },
-        {
-          "start": 9136,
-          "end": 9358,
-          "isCollapsed": false
-        },
-        {
-          "start": 9496,
-          "end": 11172,
-          "isCollapsed": false
-        },
-        {
-          "start": 9637,
-          "end": 9940,
-          "isCollapsed": false
-        },
-        {
-          "start": 9665,
-          "end": 9777,
-          "isCollapsed": false
-        },
-        {
-          "start": 9784,
-          "end": 9860,
-          "isCollapsed": false
-        },
-        {
-          "start": 9867,
-          "end": 9926,
-          "isCollapsed": false
-        },
-        {
-          "start": 9966,
-          "end": 10147,
-          "isCollapsed": false
-        },
-        {
-          "start": 10007,
-          "end": 10137,
-          "isCollapsed": false
-        },
-        {
-          "start": 10166,
-          "end": 11164,
-          "isCollapsed": false
-        },
-        {
-          "start": 10319,
-          "end": 11020,
-          "isCollapsed": false
-        },
-        {
-          "start": 10389,
-          "end": 11010,
-          "isCollapsed": false
-        },
-        {
-          "start": 10426,
-          "end": 10545,
-          "isCollapsed": false
-        },
-        {
-          "start": 10554,
-          "end": 10676,
-          "isCollapsed": false
-        },
-        {
-          "start": 10713,
-          "end": 10834,
-          "isCollapsed": false
-        },
-        {
-          "start": 10843,
-          "end": 10964,
-          "isCollapsed": false
-        },
-        {
-          "start": 10973,
-          "end": 10994,
-          "isCollapsed": false
-        },
-        {
-          "start": 11045,
-          "end": 11148,
-          "isCollapsed": false
-        },
-        {
-          "start": 11266,
-          "end": 11555,
-          "isCollapsed": false
-        },
-        {
-          "start": 11416,
-          "end": 11547,
           "isCollapsed": false
         }
       ]
@@ -962,37 +574,6 @@
         {
           "start": 1887,
           "end": 2052,
-          "isCollapsed": false
-        }
-      ]
-    },
-    {
-      "mode": 3,
-      "name": "start",
-      "nodes": [
-        {
-          "start": 2249,
-          "end": 2338,
-          "isCollapsed": false
-        },
-        {
-          "start": 2424,
-          "end": 2617,
-          "isCollapsed": false
-        },
-        {
-          "start": 2446,
-          "end": 2609,
-          "isCollapsed": false
-        },
-        {
-          "start": 2476,
-          "end": 2541,
-          "isCollapsed": false
-        },
-        {
-          "start": 2546,
-          "end": 2599,
           "isCollapsed": false
         }
       ]
@@ -1147,6 +728,582 @@
       "mode": 3,
       "name": "stop",
       "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "encodeStatus",
+      "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "initRosMsgs",
+      "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "fetchStatus",
+      "nodes": [
+        {
+          "start": 798,
+          "end": 927,
+          "isCollapsed": false
+        },
+        {
+          "start": 869,
+          "end": 919,
+          "isCollapsed": false
+        },
+        {
+          "start": 946,
+          "end": 1061,
+          "isCollapsed": false
+        },
+        {
+          "start": 1008,
+          "end": 1053,
+          "isCollapsed": false
+        },
+        {
+          "start": 1081,
+          "end": 1676,
+          "isCollapsed": false
+        },
+        {
+          "start": 1182,
+          "end": 1292,
+          "isCollapsed": false
+        },
+        {
+          "start": 1295,
+          "end": 1401,
+          "isCollapsed": false
+        },
+        {
+          "start": 1404,
+          "end": 1512,
+          "isCollapsed": false
+        },
+        {
+          "start": 1515,
+          "end": 1617,
+          "isCollapsed": false
+        },
+        {
+          "start": 1620,
+          "end": 1668,
+          "isCollapsed": false
+        },
+        {
+          "start": 1694,
+          "end": 1967,
+          "isCollapsed": false
+        },
+        {
+          "start": 1913,
+          "end": 1959,
+          "isCollapsed": false
+        },
+        {
+          "start": 1986,
+          "end": 2105,
+          "isCollapsed": false
+        },
+        {
+          "start": 2052,
+          "end": 2097,
+          "isCollapsed": false
+        },
+        {
+          "start": 2343,
+          "end": 2588,
+          "isCollapsed": false
+        },
+        {
+          "start": 2409,
+          "end": 2493,
+          "isCollapsed": false
+        },
+        {
+          "start": 2496,
+          "end": 2580,
+          "isCollapsed": false
+        },
+        {
+          "start": 2741,
+          "end": 2963,
+          "isCollapsed": false
+        },
+        {
+          "start": 2904,
+          "end": 2955,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "dataReceiver",
+      "nodes": [
+        {
+          "start": 978,
+          "end": 4075,
+          "isCollapsed": false
+        },
+        {
+          "start": 1596,
+          "end": 1884,
+          "isCollapsed": false
+        },
+        {
+          "start": 1676,
+          "end": 1784,
+          "isCollapsed": false
+        },
+        {
+          "start": 1928,
+          "end": 2196,
+          "isCollapsed": false
+        },
+        {
+          "start": 2007,
+          "end": 2117,
+          "isCollapsed": false
+        },
+        {
+          "start": 2202,
+          "end": 2483,
+          "isCollapsed": false
+        },
+        {
+          "start": 2280,
+          "end": 2386,
+          "isCollapsed": false
+        },
+        {
+          "start": 2489,
+          "end": 2870,
+          "isCollapsed": false
+        },
+        {
+          "start": 2566,
+          "end": 2674,
+          "isCollapsed": false
+        },
+        {
+          "start": 2876,
+          "end": 3243,
+          "isCollapsed": false
+        },
+        {
+          "start": 2953,
+          "end": 3057,
+          "isCollapsed": false
+        },
+        {
+          "start": 3249,
+          "end": 3514,
+          "isCollapsed": false
+        },
+        {
+          "start": 3329,
+          "end": 3437,
+          "isCollapsed": false
+        },
+        {
+          "start": 3520,
+          "end": 3824,
+          "isCollapsed": false
+        },
+        {
+          "start": 3594,
+          "end": 3703,
+          "isCollapsed": false
+        },
+        {
+          "start": 3923,
+          "end": 4029,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "start",
+      "nodes": [
+        {
+          "start": 2269,
+          "end": 2358,
+          "isCollapsed": false
+        },
+        {
+          "start": 2444,
+          "end": 2637,
+          "isCollapsed": false
+        },
+        {
+          "start": 2466,
+          "end": 2629,
+          "isCollapsed": false
+        },
+        {
+          "start": 2496,
+          "end": 2561,
+          "isCollapsed": false
+        },
+        {
+          "start": 2566,
+          "end": 2619,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "decTrajPt",
+      "nodes": [
+        {
+          "start": 865,
+          "end": 919,
+          "isCollapsed": false
+        },
+        {
+          "start": 939,
+          "end": 1157,
+          "isCollapsed": false
+        },
+        {
+          "start": 1088,
+          "end": 1148,
+          "isCollapsed": false
+        },
+        {
+          "start": 1271,
+          "end": 1325,
+          "isCollapsed": false
+        },
+        {
+          "start": 1439,
+          "end": 1492,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "pushMotion",
+      "nodes": [
+        {
+          "start": 832,
+          "end": 1079,
+          "isCollapsed": false
+        },
+        {
+          "start": 1163,
+          "end": 9550,
+          "isCollapsed": false
+        },
+        {
+          "start": 1178,
+          "end": 6199,
+          "isCollapsed": false
+        },
+        {
+          "start": 1213,
+          "end": 2081,
+          "isCollapsed": false
+        },
+        {
+          "start": 2088,
+          "end": 3016,
+          "isCollapsed": false
+        },
+        {
+          "start": 3049,
+          "end": 4619,
+          "isCollapsed": false
+        },
+        {
+          "start": 4626,
+          "end": 5832,
+          "isCollapsed": false
+        },
+        {
+          "start": 4791,
+          "end": 5820,
+          "isCollapsed": false
+        },
+        {
+          "start": 4853,
+          "end": 4985,
+          "isCollapsed": false
+        },
+        {
+          "start": 4994,
+          "end": 5577,
+          "isCollapsed": false
+        },
+        {
+          "start": 5586,
+          "end": 5798,
+          "isCollapsed": false
+        },
+        {
+          "start": 5718,
+          "end": 5798,
+          "isCollapsed": false
+        },
+        {
+          "start": 5869,
+          "end": 6185,
+          "isCollapsed": false
+        },
+        {
+          "start": 5931,
+          "end": 6153,
+          "isCollapsed": false
+        },
+        {
+          "start": 6316,
+          "end": 9542,
+          "isCollapsed": false
+        },
+        {
+          "start": 6351,
+          "end": 7866,
+          "isCollapsed": false
+        },
+        {
+          "start": 6541,
+          "end": 7854,
+          "isCollapsed": false
+        },
+        {
+          "start": 6644,
+          "end": 7840,
+          "isCollapsed": false
+        },
+        {
+          "start": 6755,
+          "end": 7061,
+          "isCollapsed": false
+        },
+        {
+          "start": 7298,
+          "end": 7484,
+          "isCollapsed": false
+        },
+        {
+          "start": 7438,
+          "end": 7468,
+          "isCollapsed": false
+        },
+        {
+          "start": 7521,
+          "end": 7818,
+          "isCollapsed": false
+        },
+        {
+          "start": 7899,
+          "end": 8324,
+          "isCollapsed": false
+        },
+        {
+          "start": 8180,
+          "end": 8292,
+          "isCollapsed": false
+        },
+        {
+          "start": 8331,
+          "end": 9177,
+          "isCollapsed": false
+        },
+        {
+          "start": 8418,
+          "end": 9165,
+          "isCollapsed": false
+        },
+        {
+          "start": 8546,
+          "end": 8661,
+          "isCollapsed": false
+        },
+        {
+          "start": 8692,
+          "end": 9151,
+          "isCollapsed": false
+        },
+        {
+          "start": 9013,
+          "end": 9129,
+          "isCollapsed": false
+        },
+        {
+          "start": 9214,
+          "end": 9528,
+          "isCollapsed": false
+        },
+        {
+          "start": 9274,
+          "end": 9496,
+          "isCollapsed": false
+        },
+        {
+          "start": 9634,
+          "end": 11310,
+          "isCollapsed": false
+        },
+        {
+          "start": 9775,
+          "end": 10078,
+          "isCollapsed": false
+        },
+        {
+          "start": 9803,
+          "end": 9915,
+          "isCollapsed": false
+        },
+        {
+          "start": 9922,
+          "end": 9998,
+          "isCollapsed": false
+        },
+        {
+          "start": 10005,
+          "end": 10064,
+          "isCollapsed": false
+        },
+        {
+          "start": 10104,
+          "end": 10285,
+          "isCollapsed": false
+        },
+        {
+          "start": 10145,
+          "end": 10275,
+          "isCollapsed": false
+        },
+        {
+          "start": 10304,
+          "end": 11302,
+          "isCollapsed": false
+        },
+        {
+          "start": 10457,
+          "end": 11158,
+          "isCollapsed": false
+        },
+        {
+          "start": 10527,
+          "end": 11148,
+          "isCollapsed": false
+        },
+        {
+          "start": 10564,
+          "end": 10683,
+          "isCollapsed": false
+        },
+        {
+          "start": 10692,
+          "end": 10814,
+          "isCollapsed": false
+        },
+        {
+          "start": 10851,
+          "end": 10972,
+          "isCollapsed": false
+        },
+        {
+          "start": 10981,
+          "end": 11102,
+          "isCollapsed": false
+        },
+        {
+          "start": 11111,
+          "end": 11132,
+          "isCollapsed": false
+        },
+        {
+          "start": 11183,
+          "end": 11286,
+          "isCollapsed": false
+        },
+        {
+          "start": 11404,
+          "end": 11693,
+          "isCollapsed": false
+        },
+        {
+          "start": 11554,
+          "end": 11685,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "motionControl",
+      "nodes": [
+        {
+          "start": 764,
+          "end": 4432,
+          "isCollapsed": false
+        },
+        {
+          "start": 840,
+          "end": 4310,
+          "isCollapsed": false
+        },
+        {
+          "start": 1036,
+          "end": 1274,
+          "isCollapsed": false
+        },
+        {
+          "start": 1126,
+          "end": 1262,
+          "isCollapsed": false
+        },
+        {
+          "start": 1493,
+          "end": 3656,
+          "isCollapsed": false
+        },
+        {
+          "start": 1579,
+          "end": 3644,
+          "isCollapsed": false
+        },
+        {
+          "start": 1643,
+          "end": 2009,
+          "isCollapsed": false
+        },
+        {
+          "start": 1955,
+          "end": 1993,
+          "isCollapsed": false
+        },
+        {
+          "start": 2733,
+          "end": 2901,
+          "isCollapsed": false
+        },
+        {
+          "start": 2912,
+          "end": 3630,
+          "isCollapsed": false
+        },
+        {
+          "start": 3661,
+          "end": 4300,
+          "isCollapsed": false
+        },
+        {
+          "start": 3984,
+          "end": 4251,
+          "isCollapsed": false
+        }
+      ]
     }
   ]
 }

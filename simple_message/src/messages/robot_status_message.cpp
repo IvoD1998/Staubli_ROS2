@@ -63,6 +63,7 @@ bool RobotStatusMessage::init(industrial::simple_message::SimpleMessage & msg)
 {
   bool rtn = false;
   ByteArray data = msg.getData();
+  
   this->init();
   this->setCommType(msg.getCommType());
 

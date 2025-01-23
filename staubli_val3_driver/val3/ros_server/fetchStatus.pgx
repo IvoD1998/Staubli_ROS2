@@ -81,11 +81,12 @@
   // drives must be powered and e-stop must be off
   // and dataReceiver and motionControl tasks must be
   // running normally
-  if (isPowered() == true and esStatus() == 0 and taskStatus(sMotionRecvTask) == 1 and taskStatus(sMotionTask) == 1)
+  if(isPowered() == true and esStatus() == 0 and taskStatus(sMotionRecvTask) == 1 and taskStatus(sMotionTask) == 1)
     rosStatusMsg.robotStatus.nMotionPossible=1
   else
     rosStatusMsg.robotStatus.nMotionPossible=0
   endIf
+  
 end]]></Code>
   </Program>
 </Programs>

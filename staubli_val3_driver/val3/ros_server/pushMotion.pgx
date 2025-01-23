@@ -57,7 +57,15 @@
         // JointTrajectoryInterface::calc_speed()
         // velocity is converted to a scalar value representing % of max velocity,
         // such that 0.2 = 20% of maximum joint speed
-      l_mTrajPt.mDesc.vel= limit((rosTrajPtMsg.jointTrajPt.nVelocity * 100), 0, 100)
+        // l_mTrajPt.mDesc.vel= limit((rosTrajPtMsg.jointTrajPt.nVelocity * 100), 0, 100)
+        l_mTrajPt.mDesc.vel = rosTrajPtMsg.jointTrajPt.nVelocity
+        l_mTrajPt.mDesc.decel = 100
+        l_mTrajPt.mDesc.tvel  = 99999
+        l_mTrajPt.mDesc.rvel  = 99999
+        l_mTrajPt.mDesc.blend = joint
+        l_mTrajPt.mDesc.leave = 1
+        l_mTrajPt.mDesc.reach = 1
+
         l_mTrajPt.nDuration=rosTrajPtMsg.jointTrajPt.nDuration
 
       break

@@ -29,6 +29,7 @@
   toBinary(rosStatusMsg.robotStatus.nInMotion,1,"-4l",rosStatusMsg.body.nData[16])
   toBinary(rosStatusMsg.robotStatus.nMode,1,"-4l",rosStatusMsg.body.nData[20])
   toBinary(rosStatusMsg.robotStatus.nMotionPossible,1,"-4l",rosStatusMsg.body.nData[24])
+  toBinary(rosStatusMsg.robotStatus.nTrajectoryComplete,1,"-4l",rosStatusMsg.body.nData[28])
 end]]></Code>
   </Program>
 </Programs>
