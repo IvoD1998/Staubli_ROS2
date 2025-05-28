@@ -1,5 +1,5 @@
 # Staubli_ROS2
-ROS2 port of the Staubli_VAL3_ROS driver with all components it requires, expanded with FAU-FAPS adaptive_motion_middleware.
+ROS2 (humble) port of the Staubli_VAL3_ROS driver with all components it requires, expanded with FAU-FAPS adaptive_motion_middleware.
 
 ## general
 This repository contains a port for ROS2 for everything that is required to use Staubli robots using the CS9 controller, based on the ROS1 driver (https://github.com/ros-industrial/staubli_val3_driver/tree/master).
