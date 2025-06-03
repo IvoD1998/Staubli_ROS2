@@ -33,11 +33,11 @@ namespace message_relay_handler
 
 StateRelayHandler::StateRelayHandler(std::shared_ptr<rclcpp::Node> node) : MessageRelayHandler("state_relay_handler", node)
 {
-  double state_receive_timeout_seconds;
+  double state_receive_timeout_seconds = 0.0;
   node_->declare_parameter<double>("state_relay_handler_receive_timeout", 1.0);
   node_->get_parameter<double>("state_relay_handler_receive_timeout", state_receive_timeout_seconds);
   state_receive_timeout = state_receive_timeout_seconds * 1e3;
-  RCLCPP_DEBUG(node_->get_logger(), "Initialized %s 'state_receive_timeout': %d ms", getName(), state_receive_timeout);
+  RCLCPP_DEBUG(node_->get_logger(), "Initialized %s 'state_receive_timeout': %f ms", getName(), state_receive_timeout);
 
   receive_timeout_ = state_receive_timeout;
 }

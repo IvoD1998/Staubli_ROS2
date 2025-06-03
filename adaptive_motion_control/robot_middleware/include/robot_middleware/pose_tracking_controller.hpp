@@ -26,7 +26,7 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "motion_control_msgs/msg/velocity_command.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "tf2_eigen/tf2_eigen.h"
+#include "tf2_eigen/tf2_eigen.hpp"
 
 #include <algorithm>
 #include <cmath>

@@ -54,6 +54,7 @@ bool TcpServerManager::init()
 
 bool TcpServerManager::connect()
 {
+  
   if (conn_->isConnected())
   {
     RCLCPP_WARN(rclcpp::get_logger("tcp_server_manager"), "[%s] Attempted to connect while in connected state", getName());
@@ -69,15 +70,15 @@ bool TcpServerManager::connect()
   {
     RCLCPP_INFO(rclcpp::get_logger("tcp_server_manager"), "[%s] Trying to connect", getName());
   }
-
+  
   while (rclcpp::ok())
   {
     // TcpServer::makeConnect blocks until client accepted!
-    bool rtn = conn_->makeConnect();
-
-#ifndef NDEBUG
-    printf("DEBUG: makeConnect() returned %d for '%s'\n", rtn, getName());
-#endif
+    conn_->makeConnect();
+    
+  #ifndef NDEBUG
+    // printf("DEBUG: makeConnect() returned %d for '%s'\n", rtn, getName());
+  #endif
 
     if (isConnected())
     {

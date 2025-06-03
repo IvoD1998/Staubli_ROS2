@@ -56,9 +56,14 @@ void MoveItInterface::init()
   //Setup the planning group the 
   this->declare_parameter<std::string>("planning_group", "manipulator");
   if (!this->get_parameter("planning_group", planning_group))
+  {
     throw std::runtime_error("Missing required parameter 'planning_group'");
-  else RCLCPP_INFO(this->get_logger(), "Using planning_group: %s", planning_group);
-
+  }
+  else 
+  {
+    RCLCPP_INFO(this->get_logger(), "Using planning_group: %s", planning_group.c_str());
+  }
+  
   //We need to get the robot description as a parameter of this node to initialise the robot_model_loader properly.
   std::vector <rclcpp::Parameter> xml_strings = {};
   rclcpp::Parameter xml_string;
@@ -165,13 +170,13 @@ void MoveItInterface::getMotionPlan(const std::shared_ptr<motion_control_msgs::s
 
   // plan
   plan_ = std::make_shared<MoveGroupInterface::Plan>();
-  MoveItErrorCode error_code = move_group_->plan(*plan_);
+  moveit::core::MoveItErrorCode error_code = move_group_->plan(*plan_);
 
-  if (error_code == MoveItErrorCode::SUCCESS)
+  if (error_code == moveit::core::MoveItErrorCode::SUCCESS)
   {
     RCLCPP_INFO(this->get_logger(), "Motion planning succeeded. Execution can be triggered now.");
     res->success = true;
-    res->trajectory = plan_->trajectory_.joint_trajectory;
+    res->trajectory = plan_->trajectory.joint_trajectory;
   }
   else
   {
@@ -186,10 +191,11 @@ void MoveItInterface::getMotionPlan(const std::shared_ptr<motion_control_msgs::s
 
 void MoveItInterface::executeMotionPlan(const std::shared_ptr<std_srvs::srv::Trigger::Request> req, std::shared_ptr<std_srvs::srv::Trigger::Response> res)
 {
+  (void)*req;
   RCLCPP_INFO(this->get_logger(), "Received 'execute' request.");
-  MoveItErrorCode error_code = move_group_->execute(*plan_);
+  moveit::core::MoveItErrorCode error_code = move_group_->execute(*plan_);
 
-  if (error_code == MoveItErrorCode::SUCCESS)
+  if (error_code == moveit::core::MoveItErrorCode::SUCCESS)
   {
     res->success = true;
     res->message = "Motion plan was executed successfully.";

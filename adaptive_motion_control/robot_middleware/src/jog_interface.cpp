@@ -16,7 +16,7 @@
 
 #include "robot_middleware/jog_interface.hpp"
 
-#include "tf2_eigen/tf2_eigen.h"
+#include "tf2_eigen/tf2_eigen.hpp"
 
 #include <algorithm>
 #include <cstring>
@@ -138,7 +138,7 @@ bool JogInterface::inError(rclcpp::Time latest_cmd_timestamp)
   return in_error_;
 }
 
-bool JogInterface::setCommand(const geometry_msgs::msg::TwistStamped::ConstPtr& cmd)
+bool JogInterface::setCommand(const geometry_msgs::msg::TwistStamped::SharedPtr& cmd)
 {
   // check frame id
   if (cmd->header.frame_id.empty())
@@ -240,7 +240,7 @@ bool JogInterface::setCommand(const geometry_msgs::msg::TwistStamped::ConstPtr& 
   return true;
 }
 
-bool JogInterface::setCommand(const control_msgs::msg::JointJog::ConstPtr& cmd)
+bool JogInterface::setCommand(const control_msgs::msg::JointJog::SharedPtr& cmd)
 {
   vel_cmd_.type = motion_control_msgs::msg::VelocityCommand::JOINT;
   int max_axes = std::min(vel_cmd_.cmd.size(), cmd->velocities.size());

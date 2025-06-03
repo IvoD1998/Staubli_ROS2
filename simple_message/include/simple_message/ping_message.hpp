@@ -94,13 +94,25 @@ public:
      */
   bool toTopic(industrial::simple_message::SimpleMessage & msg)
     {
+      (void)msg;
   	  return false;
     }
 
   // Overrides - SimpleSerialize
-    bool load(industrial::byte_array::ByteArray *buffer){return true;}
-    bool unload(industrial::byte_array::ByteArray *buffer){return true;}
-    unsigned int byteLength(){return 0;}
+    bool load(industrial::byte_array::ByteArray *buffer)
+    {
+      (void)*buffer;
+      return true;
+    }
+    bool unload(industrial::byte_array::ByteArray *buffer)
+    {
+      (void)*buffer;
+      return true;
+    }
+    unsigned int byteLength()
+    {
+      return 0;
+    }
 
 private:
 

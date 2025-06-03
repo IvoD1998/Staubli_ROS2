@@ -15,7 +15,7 @@
  */
 
 #include "robot_middleware/pose_tracking_controller.hpp"
-#include "moveit/moveit_cpp/moveit_cpp.h"
+#include "moveit/moveit_cpp/moveit_cpp.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -148,15 +148,14 @@ void PoseTrackingController::init(const std::shared_ptr<RobotDriver>& driver)
 
 bool PoseTrackingController::initPid(const motion_control_msgs::msg::PIDParameters &pid_params, control_toolbox::Pid& pid, const std::string &name)
 {
-
-  pid.initPid(pid_params.p, pid_params.i, pid_params.d, pid_params.i_clamp, -pid_params.i_clamp);
+  pid.initialize(pid_params.p, pid_params.i, pid_params.d, pid_params.i_clamp, -pid_params.i_clamp);
 
   RCLCPP_INFO(node_->get_logger(), "Initialized PID controller '%s'", name.c_str());
 
 #ifndef NDEBUG
   double p, i, d, i_max, i_min;
   bool antiwindup;
-  pid.getGains(p, i, d, i_max, i_min, antiwindup);
+  pid.get_gains(p, i, d, i_max, i_min, antiwindup);
   printf("  %s:\n"
          "    p:          %.3f\n"
          "    i:          %.3f\n"
@@ -268,11 +267,11 @@ void PoseTrackingController::computeCommand(const Eigen::Vector3d& linear_error,
          linear_error.x(), linear_error.y(), linear_error.z(),
          std::to_string(controller_period_.nanoseconds()).c_str());
 
-  cmd[0] = pid_linear_x_.computeCommand(linear_error.x(), controller_period_.nanoseconds());
-  cmd[1] = pid_linear_y_.computeCommand(linear_error.y(), controller_period_.nanoseconds());
-  cmd[2] = pid_linear_z_.computeCommand(linear_error.z(), controller_period_.nanoseconds());
+  cmd[0] = pid_linear_x_.compute_command(linear_error.x(), controller_period_.nanoseconds());
+  cmd[1] = pid_linear_y_.compute_command(linear_error.y(), controller_period_.nanoseconds());
+  cmd[2] = pid_linear_z_.compute_command(linear_error.z(), controller_period_.nanoseconds());
 
-  double angle_cmd = pid_angular_.computeCommand(angular_error.angle(), controller_period_.nanoseconds());
+  double angle_cmd = pid_angular_.compute_command(angular_error.angle(), controller_period_.nanoseconds());
   cmd[3] = angle_cmd * angular_error.axis().x();
   cmd[4] = angle_cmd * angular_error.axis().y();
   cmd[5] = angle_cmd * angular_error.axis().z();

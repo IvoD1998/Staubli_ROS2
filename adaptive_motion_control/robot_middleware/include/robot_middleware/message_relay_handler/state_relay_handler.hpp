@@ -18,7 +18,7 @@
 
 #include "robot_middleware/message_relay_handler/message_relay_handler.hpp"
 
-#include "moveit/robot_state/robot_state.h"
+#include "moveit/robot_state/robot_state.hpp"
 #include "simple_message/messages/joint_feedback_message.hpp"
 #include "simple_message/messages/joint_message.hpp"
 #include "simple_message/messages/robot_status_message.hpp"

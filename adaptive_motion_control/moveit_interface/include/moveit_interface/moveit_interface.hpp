@@ -34,7 +34,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "motion_control_msgs/srv/get_motion_plan.hpp"
-#include "moveit/move_group_interface/move_group_interface.h"
+#include "moveit/move_group_interface/move_group_interface.hpp"
 #include "std_srvs/srv/trigger.hpp"
 
 class MoveItInterface : public rclcpp::Node

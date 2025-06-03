@@ -116,13 +116,13 @@ protected:
 
   void trajectoryStop();
 
+  int min_buffer_size_;
   boost::thread* streaming_thread_;
   boost::mutex mutex_;
   int current_point_;
   std::vector<JointTrajPtMessage> current_traj_;
   TransferState state_;
   rclcpp::Time streaming_start_;
-  int min_buffer_size_;
 
 };
 

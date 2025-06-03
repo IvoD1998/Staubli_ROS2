@@ -62,6 +62,7 @@ void MessageRelayHandler::onReceiveFail()
 
 bool MessageRelayHandler::handleMessage(SimpleMessage& msg, rclcpp::Time& timestamp)
 {
+  (void)timestamp;
   RCLCPP_DEBUG(node_->get_logger(), "[%s] Received message (msgType: %d)", getName(), msg.getMessageType());
   return true;
 }

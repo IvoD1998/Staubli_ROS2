@@ -1,13 +1,24 @@
-planning_plugin: ompl_interface/OMPLPlanner
-request_adapters: >-
-  default_planner_request_adapters/AddTimeOptimalParameterization
-  default_planner_request_adapters/ResolveConstraintFrames
-  default_planner_request_adapters/FixWorkspaceBounds
-  default_planner_request_adapters/FixStartStateBounds
-  default_planner_request_adapters/FixStartStateCollision
-  default_planner_request_adapters/FixStartStatePathConstraints
-start_state_max_bounds_error: 0.1
+planning_plugins:
+  - ompl_interface/OMPLPlanner
+# To optionally use Ruckig for jerk-limited smoothing, add this line to the request adapters below
+# default_planning_request_adapters/AddRuckigTrajectorySmoothing
+request_adapters:
+  - default_planning_request_adapters/ResolveConstraintFrames
+  - default_planning_request_adapters/ValidateWorkspaceBounds
+  - default_planning_request_adapters/CheckStartStateBounds
+  - default_planning_request_adapters/CheckStartStateCollision
+response_adapters:
+  - default_planning_response_adapters/AddTimeOptimalParameterization
+  - default_planning_response_adapters/ValidateSolution
+  - default_planning_response_adapters/DisplayMotionPath
 planner_configs:
+  APSConfigDefault:
+    type: geometric::AnytimePathShortening
+    shortcut: 1  # Attempt to shortcut all new solution paths
+    hybridize: 1  # Compute hybrid solution trajectories
+    max_hybrid_paths: 36  # Number of hybrid paths generated per iteration
+    num_planners: 8  # The number of default planners to use for planning
+    planners: "RRTConnect,RRTConnect,RRTConnect,RRTConnect,RRTConnect,RRTConnect,RRTConnect,RRTConnect"  # A comma-separated list of planner types (e.g., "PRM,EST,RRTConnect"Optionally, planner parameters can be passed to change the default:"PRM[max_nearest_neighbors=5],EST[goal_bias=.5],RRT[range=10. goal_bias=.1]"
   SBLkConfigDefault:
     type: geometric::SBL
     range: 0.0  # Max motion added to tree. ==> maxDistance_ default: 0.0, if 0.0, set on setup()
@@ -61,7 +72,6 @@ planner_configs:
     max_nearest_neighbors: 10  # use k nearest neighbors. default: 10
   PRMstarkConfigDefault:
     type: geometric::PRMstar
-    optimization_objective: PathLengthOptimizationObjective
   FMTkConfigDefault:
     type: geometric::FMT
     num_samples: 1000  # number of states that the planner should sample. default: 1000
@@ -133,9 +143,9 @@ planner_configs:
   TrajOptDefault:
     type: geometric::TrajOpt
 
-manipulator:
-  default_planner_config: RRTkConfigDefault
+panda_arm:
   planner_configs:
+    - APSConfigDefault
     - SBLkConfigDefault
     - ESTkConfigDefault
     - LBKPIECEkConfigDefault
@@ -159,5 +169,58 @@ manipulator:
     - LazyPRMstarkConfigDefault
     - SPARSkConfigDefault
     - SPARStwokConfigDefault
-
-  
+    - TrajOptDefault
+panda_arm_hand:
+  planner_configs:
+    - APSConfigDefault
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+    - FMTkConfigDefault
+    - BFMTkConfigDefault
+    - PDSTkConfigDefault
+    - STRIDEkConfigDefault
+    - BiTRRTkConfigDefault
+    - LBTRRTkConfigDefault
+    - BiESTkConfigDefault
+    - ProjESTkConfigDefault
+    - LazyPRMkConfigDefault
+    - LazyPRMstarkConfigDefault
+    - SPARSkConfigDefault
+    - SPARStwokConfigDefault
+    - TrajOptDefault
+hand:
+  planner_configs:
+    - APSConfigDefault
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+    - FMTkConfigDefault
+    - BFMTkConfigDefault
+    - PDSTkConfigDefault
+    - STRIDEkConfigDefault
+    - BiTRRTkConfigDefault
+    - LBTRRTkConfigDefault
+    - BiESTkConfigDefault
+    - ProjESTkConfigDefault
+    - LazyPRMkConfigDefault
+    - LazyPRMstarkConfigDefault
+    - SPARSkConfigDefault
+    - SPARStwokConfigDefault
+    - TrajOptDefault

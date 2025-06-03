@@ -132,8 +132,8 @@ JointTrajectoryInterface::~JointTrajectoryInterface()
 void JointTrajectoryInterface::jointTrajectoryCB(const std::shared_ptr<industrial_msgs::srv::CmdJointTrajectory::Request> req,
                                                  std::shared_ptr<industrial_msgs::srv::CmdJointTrajectory::Response> res)
 {
-  trajectory_msgs::msg::JointTrajectory::Ptr traj_ptr(new trajectory_msgs::msg::JointTrajectory);
-  *traj_ptr = req->trajectory;  // copy message data
+  trajectory_msgs::msg::JointTrajectory::SharedPtr traj_ptr;
+  *traj_ptr = req->trajectory;
   this->jointTrajectorySubCB(traj_ptr);
 
   // no success/fail result from jointTrajectoryCB.  Assume success.
@@ -154,7 +154,7 @@ void JointTrajectoryInterface::jointTrajectorySubCB(const trajectory_msgs::msg::
   }
 
   // convert trajectory into robot-format
-  std::vector<JointTrajPtMessage> robot_msgs;
+  std::vector<JointTrajPtMessage> robot_msgs = {};
   if (!trajectory_to_msgs(msg, &robot_msgs))
   {
     RCLCPP_ERROR(this->get_logger(), "Trajectory not processed");
@@ -358,6 +358,7 @@ void JointTrajectoryInterface::trajectoryStop()
 void JointTrajectoryInterface::stopMotionCB(const std::shared_ptr<industrial_msgs::srv::StopMotion::Request> req,
                                     std::shared_ptr<industrial_msgs::srv::StopMotion::Response> res)
 {
+  (void)*req;
   trajectoryStop();
 
   // no success/fail result from trajectoryStop.  Assume success.
@@ -367,19 +368,19 @@ void JointTrajectoryInterface::stopMotionCB(const std::shared_ptr<industrial_msg
 
 bool JointTrajectoryInterface::is_valid(const trajectory_msgs::msg::JointTrajectory &traj)
 {
-  for (int i=0; i<traj.points.size(); ++i)
+  for (size_t i=0; i<traj.points.size(); ++i)
   {
     const trajectory_msgs::msg::JointTrajectoryPoint &pt = traj.points[i];
 
     // check for non-empty positions
     if (pt.positions.empty())
     {
-      RCLCPP_ERROR(this->get_logger(), "Validation failed: Missing position data for trajectory pt %d", i);
+      RCLCPP_ERROR(this->get_logger(), "Validation failed: Missing position data for trajectory pt %ld", i);
       return false;
     }
 
     // check for joint velocity limits
-    for (int j=0; j<pt.velocities.size(); ++j)
+    for (size_t j=0; j<pt.velocities.size(); ++j)
     {
       std::map<std::string, double>::iterator max_vel = joint_vel_limits_.find(traj.joint_names[j]);
       if (max_vel == joint_vel_limits_.end()) 
@@ -389,14 +390,14 @@ bool JointTrajectoryInterface::is_valid(const trajectory_msgs::msg::JointTraject
 
       if (std::abs(pt.velocities[j]) > max_vel->second)
       {
-        RCLCPP_ERROR(this->get_logger(), "Validation failed: Max velocity exceeded for trajectory pt %d, joint '%s'", i, traj.joint_names[j].c_str());
+        RCLCPP_ERROR(this->get_logger(), "Validation failed: Max velocity exceeded for trajectory pt %ld, joint '%s'", i, traj.joint_names[j].c_str());
         return false;
       }
     }
     // check for valid timestamp
     if ((i > 0) && ((pt.time_from_start.sec == 0) && (pt.time_from_start.nanosec == 0)))
     {
-      RCLCPP_ERROR(this->get_logger(), "Validation failed: Missing valid timestamp data for trajectory pt %d", i);
+      RCLCPP_ERROR(this->get_logger(), "Validation failed: Missing valid timestamp data for trajectory pt %ld", i);
       return false;
     }
   }

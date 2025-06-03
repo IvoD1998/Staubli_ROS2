@@ -80,7 +80,7 @@ def generate_launch_description():
         executable="static_transform_publisher",
         name="static_transform_publisher",
         output="log",
-        arguments=["--frame-id", "world",
+        arguments=["--frame-id", "map",
                    "--child-frame-id", "base_link"],
     )
 

@@ -68,7 +68,7 @@ bool ByteArray::init(const char* buffer, const shared_int byte_size)
 {
   bool rtn;
 
-  if (this->getMaxBufferSize() >= byte_size)
+  if (this->getMaxBufferSize() >= (unsigned)byte_size)
   {
     ////RCLCPP_INFO(rclcpp::get_logger("byte_array"), "Initializing buffer to size: %d", byte_size);
     this->load((void*)buffer, byte_size);
@@ -212,7 +212,7 @@ bool ByteArray::load(void* value, const shared_int byte_size)
 
     rtn = true;
   }
-  catch (std::exception)
+  catch (std::exception const&)
   {
     ////RCLCPP_ERROR(rclcpp::get_logger("byte_array"), "Failed to load byte array");
     rtn = false;
@@ -273,7 +273,7 @@ bool ByteArray::unload(ByteArray &value, const shared_int byte_size)
   ////RCLCPP_INFO(rclcpp::get_logger("byte_array"), "Executing byte array unload through byte array");
   bool rtn;
 
-  if (byte_size <= this->getBufferSize())
+  if ((unsigned)byte_size <= this->getBufferSize())
   {
     std::deque<char>& src  = this->buffer_;
     std::deque<char>& dest = value.buffer_;
@@ -303,7 +303,7 @@ bool ByteArray::unload(void* value, shared_int byteSize)
     return false;
   }
 
-  if (byteSize <= this->getBufferSize())
+  if ((unsigned)byteSize <= this->getBufferSize())
   {
       std::deque<char>& src  = this->buffer_;
 
@@ -366,7 +366,7 @@ bool ByteArray::unloadFront(void* value, const industrial::shared_types::shared_
     return false;
   }
 
-  if (byteSize <= this->getBufferSize())
+  if ((unsigned)byteSize <= this->getBufferSize())
   {
       std::deque<char>& src  = this->buffer_;
 

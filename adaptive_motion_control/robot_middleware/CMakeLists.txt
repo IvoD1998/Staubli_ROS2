@@ -13,13 +13,13 @@ endif()
 
 # check build type
 if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
-  message("${PROJECT_NAME}: No build type specified. Selecting 'Release' for best performance")
+  # message("${PROJECT_NAME}: No build type specified. Selecting 'Release' for best performance")
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
 # compile-out debug messages in Release configuration
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-  message("${PROJECT_NAME}: Setting ROS console log level to INFO in 'Release' config (compile-out debug messages)")
+  # message("${PROJECT_NAME}: Setting ROS console log level to INFO in 'Release' config (compile-out debug messages)")
   add_definitions(-DROSCONSOLE_MIN_SEVERITY=ROSCONSOLE_SEVERITY_INFO)
 endif()
 

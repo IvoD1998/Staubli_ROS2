@@ -46,10 +46,14 @@ bool RobotServerProxy::init(int default_motion_port, int default_state_port)
   auto state_server_manager = std::make_shared<TcpServerManager>("state_server", state_port);
 
   if (!motion_server_manager->init())
+  {
     return false;
+  }
 
   if (!state_server_manager->init())
+  {
     return false;
+  }
 
   motion_server_manager_ = std::move(motion_server_manager);
   state_server_manager_ = std::move(state_server_manager);

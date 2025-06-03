@@ -34,7 +34,7 @@ bool ModelExtention::initParam(const std::string &node_name, const std::string &
 
     if(xml_string.get_type() != rclcpp::ParameterType::PARAMETER_STRING)
     {
-        RCLCPP_ERROR(this->get_logger(), "Parameter %s of node %s is not of type string", param_name, node_name);
+        RCLCPP_ERROR(this->get_logger(), "Parameter %s of node %s is not of type string", param_name.c_str(), node_name.c_str());
     }
     
     // RCLCPP_INFO(this->get_logger(), xml_string.as_string());

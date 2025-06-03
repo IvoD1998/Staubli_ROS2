@@ -11,15 +11,16 @@ def generate_launch_description():
      #Define launch arguments
     launch_arguments=[]
     #Declare arguments
-    launch_arguments.append(
-        DeclareLaunchArgument(
-            "robot_ip",
-            description="IP address of the real robot"
-        )
-    )
-    robot_ip = LaunchConfiguration(
-        "robot_ip"
-    )
+    # launch_arguments.append(
+    #     DeclareLaunchArgument(
+    #         "robot_ip",
+    #         description="IP address of the real robot"
+    #     )
+    # )
+    # robot_ip = LaunchConfiguration(
+    #     "robot_ip"
+    # )
+    # robot_ip = "172.31.0.2"
     #Nodes
     nodes = []
     nodes.append(
@@ -28,8 +29,7 @@ def generate_launch_description():
             executable="robot_middleware",
             output="screen",
             parameters=[
-                parameters_file_path,
-                {"robot_ip": robot_ip}
+                parameters_file_path
             ],
         )
     )

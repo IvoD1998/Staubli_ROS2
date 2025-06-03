@@ -27,7 +27,9 @@
 
 using namespace std::placeholders;
 
-SystemInterface::SystemInterface() : connection_(nullptr), Node("system_interface")
+SystemInterface::SystemInterface() 
+  : Node("system_interface")
+  , connection_(nullptr)
 {
 }
 
@@ -70,7 +72,7 @@ bool SystemInterface::init(const std::string& default_ip, int default_port)
     return false;
 
   this->connection_ = client;
-  RCLCPP_INFO(this->get_logger(), "system_interface: Connecting (%s:%d)", ip_addr, port);
+  RCLCPP_INFO(this->get_logger(), "system_interface: Connecting (%s:%d)", ip.c_str(), port);
 
   return this->connection_->makeConnect();
 }

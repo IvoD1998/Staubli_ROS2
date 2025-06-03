@@ -49,20 +49,20 @@ bool JointFeedbackRelayHandler::createMessages(industrial::joint_feedback_messag
 
     if(has_pos)
     {
-        for (int i = 0; i < all_joint_names_.size(); ++i)
+        for (size_t i = 0; i < all_joint_names_.size(); ++i)
         {
             industrial::shared_types::shared_real value;
             if(pos.getJoint(i, value)) all_joint_pos[i] = value;
-            else RCLCPP_ERROR(this->get_logger(), "Failed to parse position value #%d from JointFeedbackMessage", i);
+            else RCLCPP_ERROR(this->get_logger(), "Failed to parse position value #%ld from JointFeedbackMessage", i);
         }
     }
     if(has_vel)
     {
-        for (int i = 0; i < all_joint_names_.size(); ++i)
+        for (size_t i = 0; i < all_joint_names_.size(); ++i)
         {
             industrial::shared_types::shared_real value;
             if(vel.getJoint(i, value)) all_joint_vel[i] = value;
-            else RCLCPP_ERROR(this->get_logger(), "Failed to parse velocity value #%d from JointFeedbackMessage", i);
+            else RCLCPP_ERROR(this->get_logger(), "Failed to parse velocity value #%ld from JointFeedbackMessage", i);
         }
     }
 
@@ -117,7 +117,7 @@ bool JointFeedbackRelayHandler::select(const std::vector<double> &all_joint_pos,
     pub_joint_names->clear();
 
     //Skip over "blank" joint names
-    for (int i = 0; i < all_joint_pos.size(); ++i)
+    for (size_t i = 0; i < all_joint_pos.size(); ++i)
     {
         if (all_joint_names[i].empty()) continue;
         pub_joint_pos->push_back(all_joint_pos[i]);

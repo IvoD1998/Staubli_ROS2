@@ -133,8 +133,9 @@ void SimpleSocketManager::connectionTask()
 
             // disconnect friend connection forcing it to reconnect
             if (friend_connection_ && friend_connection_->isConnected())
+            {
                 friend_connection_->disconnect();
-
+            }
             connect();
         }
     }

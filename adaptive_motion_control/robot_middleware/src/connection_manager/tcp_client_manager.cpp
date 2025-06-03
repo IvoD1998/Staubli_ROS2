@@ -82,7 +82,7 @@ bool TcpClientManager::connect()
       if (conn_->isConnected())
       {
         connected_once_ = true;
-        RCLCPP_INFO(rclcpp::get_logger("tcp_client_manager"), "Connected");
+        RCLCPP_INFO(rclcpp::get_logger("tcp_client_manager"), "[%s] Connected", getName());
         return true;
       }
     }
@@ -91,7 +91,7 @@ bool TcpClientManager::connect()
     int seconds = CONNECT_RETRY_DELAY;
     while (rclcpp::ok() && seconds > 0)
     {
-        RCLCPP_DEBUG(rclcpp::get_logger("tcp_client_manager"), "[%s] Trying to connect again in %d seconds", getName(), seconds);
+      RCLCPP_INFO(rclcpp::get_logger("tcp_client_manager"), "[%s] Trying to connect again in %d seconds", getName(), seconds);
       std::this_thread::sleep_for(1s);
       seconds--;
     }

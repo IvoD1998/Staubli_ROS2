@@ -75,13 +75,12 @@ bool RobotMiddleware::init()
 
   this->declare_parameter<std::string>("robot_ip", "");
   this->get_parameter<std::string>("robot_ip", robot_ip);
-
+  
   if (robot_ip == "")
   {
     RCLCPP_ERROR(this->get_logger(), "robot_ip parameter found empty!");
     return false;
   }
-
   // check if driver type is given as a parameter
   std::string driver_type = "staubli";
   driver_ = std::make_shared<staubli::StaubliDriver>(robot_ip, robot_model_loader_->getModel(), this->shared_from_this());

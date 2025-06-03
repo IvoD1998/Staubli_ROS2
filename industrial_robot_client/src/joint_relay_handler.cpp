@@ -100,13 +100,13 @@ bool JointRelayHandler::create_messages(industrial::joint_message::JointMessage 
 {
   // read joint positions from JointMessage
   std::vector<double> all_joint_pos(all_joint_names_.size());
-  for (int i=0; i<all_joint_names_.size(); ++i)
+  for (size_t i=0; i<all_joint_names_.size(); ++i)
   {
     industrial::shared_types::shared_real value;
     if (msg_in.getJoints().getJoint(i, value))
       all_joint_pos[i] = value;
     else
-      RCLCPP_ERROR(this->get_logger(), "Failed to parse #%d value from JointMessage", i);
+      RCLCPP_ERROR(this->get_logger(), "Failed to parse #%ld value from JointMessage", i);
   }
 
   // apply transform to joint positions, if required
@@ -153,7 +153,7 @@ bool JointRelayHandler::select(const std::vector<double>& all_joint_pos,
   pub_joint_names->clear();
 
   // skip over "blank" joint names
-  for (int i=0; i<all_joint_pos.size(); ++i)
+  for (size_t i=0; i<all_joint_pos.size(); ++i)
   {
     if (all_joint_names[i].empty())
       continue;

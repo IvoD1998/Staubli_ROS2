@@ -38,7 +38,9 @@ namespace industrial_robot_client
 namespace joint_trajectory_streamer
 {
 
-JointTrajectoryStreamer::JointTrajectoryStreamer(int min_buffer_size) : min_buffer_size_(min_buffer_size), JointTrajectoryInterface()
+JointTrajectoryStreamer::JointTrajectoryStreamer(int min_buffer_size) 
+  : JointTrajectoryInterface()
+  , min_buffer_size_(min_buffer_size)
 {
 };
 

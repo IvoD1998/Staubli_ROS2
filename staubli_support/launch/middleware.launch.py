@@ -23,6 +23,25 @@ def generate_launch_description():
     )
     middleware_ip = "127.0.0.1"
 
+    #Nodes
+    nodes = []
+    
+    nodes.append(
+        Node(
+            package="moveit_interface",
+            executable="moveit_interface",
+            parameters=[
+                {"planning_group": "manipulator"}
+            ],
+        )
+    )   
+    nodes.append(
+            Node(
+            package="industrial_robot_client",
+            executable="joint_trajectory_action"
+        )
+    )
+
     #Launch required components
     launch_files = []
 
@@ -33,7 +52,7 @@ def generate_launch_description():
             ),
             launch_arguments={
                 "robot_ip": robot_ip,
-            }.items()
+            }.items(),
         )
     )
     
@@ -48,15 +67,24 @@ def generate_launch_description():
         )
     )
     
-    #Real robot, with middleware
+    # #Real robot, with middleware
+    launch_files.append(
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(get_package_share_directory("staubli_tx2_60l_moveit_config"), "launch", "staubli_tx2_60l_planning_execution_real.launch.py")
+            )
+        )
+    )
     launch_files.append(
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(get_package_share_directory("robot_middleware"), "launch", "robot_middleware.launch.py")
-            )
+            ),
+            # launch_arguments={
+            #     "robot_ip": robot_ip,
+            # }.items()
         )
     )
-    
     launch_files.append(
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -67,7 +95,6 @@ def generate_launch_description():
             }.items()
         )
     )
-    
     launch_files.append(
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -79,33 +106,7 @@ def generate_launch_description():
         )
     )
     
-    launch_files.append(
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(get_package_share_directory("staubli_tx2_60l_moveit_config"), "launch", "staubli_tx2_60l_planning_execution_real.launch.py")
-            )
-        )
-    )
 
-    #Nodes
-    nodes = []
-    nodes.append(
-            Node(
-            package="industrial_robot_client",
-            executable="joint_trajectory_action"
-        )
-    )
-    
-
-    nodes.append(
-        Node(
-            package="moveit_interface",
-            executable="moveit_interface",
-            parameters=[
-            {"planning_group": "manipulator"}
-            ],
-        )
-    )   
     return LaunchDescription(
         nodes +
         launch_arguments +

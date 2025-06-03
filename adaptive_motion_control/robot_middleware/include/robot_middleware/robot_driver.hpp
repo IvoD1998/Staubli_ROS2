@@ -21,7 +21,7 @@
 #include "robot_middleware/velocity_control_settings.hpp"
 
 #include "motion_control_msgs/msg/velocity_command.hpp"
-#include "moveit/robot_state/robot_state.h"
+#include "moveit/robot_state/robot_state.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "simple_message/robot_status.hpp"
 #include "simple_message/simple_message.hpp"

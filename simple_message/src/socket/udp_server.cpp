@@ -108,7 +108,7 @@ bool UdpServer::init(int port_num)
 bool UdpServer::makeConnect()
 {
   ByteArray send;
-  char sendHS = this->CONNECT_HANDSHAKE;
+  unsigned char sendHS = this->CONNECT_HANDSHAKE;
   char recvHS = 0;
   int bytesRcvd = 0;
   const int timeout = 1000;  // Time (ms) between handshake sends

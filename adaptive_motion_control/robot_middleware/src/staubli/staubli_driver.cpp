@@ -76,10 +76,12 @@ bool StaubliDriver::sendVelocityConfig_internal(uint8_t type)
   cfg.cmd_type_ = static_cast<shared_int>(vel_cmd_type);
   cfg.accel_ = 1.0;  // no acceleration limit (100% of nominal acceleration)
 
-  // determine the maximum nominal velocity
+  // determine the maximum nominal velocity via the data in the MoveIt config
   double max_nominal_velocity = 0.0;
   for (const VariableBounds& b : joint_limits_)
+  {
     max_nominal_velocity = std::max(max_nominal_velocity, b.max_velocity_);
+  }
 
   // determine the actual maximum velocity to use
   double max_actual_velocity = vel_ctrl_settings_->joint_limits.has_velocity_limit ?

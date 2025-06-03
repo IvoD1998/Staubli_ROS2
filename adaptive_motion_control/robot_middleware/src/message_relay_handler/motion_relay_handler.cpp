@@ -25,13 +25,15 @@ namespace message_relay_handler
 {
 
 MotionRelayHandler::MotionRelayHandler(std::shared_ptr<rclcpp::Node> node)
-  : MessageRelayHandler("motion_relay_handler", node), is_relaying_(false), ignore_trajectory_(false)
-{
-  double motion_receive_timeout_seconds;
+  : MessageRelayHandler("motion_relay_handler", node)
+  , is_relaying_(false)
+  , ignore_trajectory_(false)
+  {
+  double motion_receive_timeout_seconds = 0.0;
   node_->declare_parameter<double>("motion_relay_handler_receive_timeout", 0.1);
   node_->get_parameter<double>("motion_relay_handler_receive_timeout", motion_receive_timeout_seconds);
   motion_receive_timeout = motion_receive_timeout_seconds * 1e3;
-  RCLCPP_DEBUG(node_->get_logger(), "Initialized %s 'motion_receive_timeout': %d ms", getName(), motion_receive_timeout);
+  RCLCPP_DEBUG(node_->get_logger(), "Initialized %s 'motion_receive_timeout': %f ms", getName(), motion_receive_timeout);
 
   receive_timeout_ = motion_receive_timeout;
 }

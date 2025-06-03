@@ -20,7 +20,7 @@
 #include "simple_message/velocity_command_type.hpp"
 
 #include "motion_control_msgs/msg/velocity_command.hpp"
-#include "moveit/robot_model/robot_model.h"
+#include "moveit/robot_model/robot_model.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 #include <string>

@@ -77,7 +77,7 @@ bool ParamUtils::getListParam(const std::string thisname, const std::string para
     rtn = (rpc_list.get_type() == rclcpp::ParameterType::PARAMETER_STRING_ARRAY);
     if(rtn)
     {
-      for (int i = 0; i < rpc_list.as_string_array().size(); ++i)
+      for (size_t i = 0; i < rpc_list.as_string_array().size(); ++i)
       {
         RCLCPP_INFO_STREAM(this->get_logger(), "Adding " << rpc_list.as_string_array().at(i) << " to list parameter");
         list_param.push_back(static_cast<std::string>(rpc_list.as_string_array().at(i)));

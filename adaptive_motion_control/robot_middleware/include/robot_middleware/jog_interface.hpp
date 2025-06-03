@@ -63,9 +63,9 @@ private:
 
   bool inError(rclcpp::Time latest_cmd_timestamp);
 
-  bool setCommand(const geometry_msgs::msg::TwistStamped::ConstPtr& cmd);
+  bool setCommand(const geometry_msgs::msg::TwistStamped::SharedPtr& cmd);
 
-  bool setCommand(const control_msgs::msg::JointJog::ConstPtr& cmd);
+  bool setCommand(const control_msgs::msg::JointJog::SharedPtr& cmd);
 
   bool setState(JogInterfaceState new_state);
 

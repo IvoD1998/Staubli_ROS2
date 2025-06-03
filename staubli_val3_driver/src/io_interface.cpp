@@ -79,7 +79,7 @@ bool IOInterface::init(const std::string& default_ip, int default_port)
     return false;
 
   this->connection_ = client;
-  RCLCPP_INFO(this->get_logger(), "io_interface: Connecting (%s:%i)", ip_addr, port);
+  RCLCPP_INFO(this->get_logger(), "io_interface: Connecting (%s:%i)", ip.c_str(), port);
 
 
   return this->connection_->makeConnect();

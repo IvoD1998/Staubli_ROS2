@@ -87,14 +87,20 @@ int UdpSocket::rawReceiveBytes(char *buffer, shared_int num_bytes)
     rc = RECV_FROM(this->getSockHandle(), &this->udp_read_buffer_[0], this->MAX_BUFFER_SIZE,
         0, (sockaddr *)&this->sockaddr_, &addrSize);
     if(rc <= 0)
+    {
       return 0; // either we had an error or read no data, don't update the buffer
+    }
     udp_read_head_ = this->udp_read_buffer_;
     udp_read_len_ = rc;
   }
-  if(num_bytes == 0 || num_bytes >= udp_read_len_) // read all data available
+  if(num_bytes == 0 || (unsigned)num_bytes >= udp_read_len_) // read all data available
+  {
     len_cpy = udp_read_len_;
+  }
   else
+  {
     len_cpy = num_bytes;
+  }
   memcpy(buffer, udp_read_head_, len_cpy);
   udp_read_head_ += len_cpy; // shift pointer in buffer
   udp_read_len_ -= len_cpy;

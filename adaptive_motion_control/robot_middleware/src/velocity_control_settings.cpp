@@ -38,7 +38,7 @@ VelocityControlSettings::~VelocityControlSettings()
 
 bool VelocityControlSettings::initParam()
 {
-  std::size_t error = 0;
+  // std::size_t error = 0;
 
   node_->declare_parameter<std::string>("velocity_control_base_frame", "base");
   node_->declare_parameter<std::string>("velocity_control_tool_frame", "tool0");

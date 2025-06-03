@@ -8,7 +8,7 @@ message_relay_handler:
 # Robot middleware parameters
 robot_middleware:
   ros__parameters:
-    robot_ip: 172.31.0.1
+    robot_ip: 172.31.0.2
     # Receive tiemout for jog commands. The jog control loop will be exited and the robot will
     # be stopped after a receive timeout. 
     jog_interface_receive_timeout: 0.25
@@ -55,13 +55,13 @@ robot_middleware:
     # Motion and state ports used to connect to the robot
     # OPTIONAL -> if you use custom motion and state ports, you can change them here
     # If you use the default (which is recommended), you can leave these in comment
-    # robot_driver_motion_port: 11000
-    # robot_driver_state_port: 11002
+    robot_driver_motion_port: 11000
+    robot_driver_state_port: 11002
     # Motion and state ports used to connect to the robot
     # OPTIONAL -> if you use custom motion and state ports, you can change them here
     # If you use the default (which is recommended), you can leave these in comment
-    # robot_server_proxy_motion_server_port: 11000
-    # robot_server_proxy_state_server_port: 11002
+    robot_server_proxy_motion_server_port: 11000
+    robot_server_proxy_state_server_port: 11002
 
     # The base frame of the robot which is used as reference for the velocity commands
     # by default (typically base_link or base). The orientation of the base frame specified

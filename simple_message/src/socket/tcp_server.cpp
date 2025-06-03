@@ -121,7 +121,7 @@ bool TcpServer::makeConnect()
   int rc = this->SOCKET_FAIL;
   //int socket = this->SOCKET_FAIL;
   int disableNodeDelay = 1;
-  int err = 0;
+  // int err = 0;
 
   if (!this->isConnected())
   {
@@ -141,11 +141,11 @@ bool TcpServer::makeConnect()
 
       // The set no delay disables the NAGEL algorithm
       rc = SET_NO_DELAY(this->getSockHandle(), disableNodeDelay);
-      err = errno;
-      if (this->SOCKET_FAIL == rc)
-      {
+      // err = errno;
+      // if (this->SOCKET_FAIL == rc)
+      // {
         //RCLCPP_WARN(rclcpp::get_logger("tcp_server"), "Failed to set no socket delay, errno: %d, sending data can be delayed by up to 250ms", err);
-      }
+      // }
       this->setConnected(true);
       rtn = true;
     }

@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: staubli_tx2_60l_description
+    relative_path: urdf/tx2_60l.xacro
+  srdf:
+    relative_path: config/staubli_tx2_60l.srdf
+  package_settings:
+    author_name: Ivo
+    author_email: ivo.dekker@kuleuven.be
+    generated_timestamp: 1748587175
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

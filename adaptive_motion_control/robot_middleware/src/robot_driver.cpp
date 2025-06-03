@@ -70,7 +70,7 @@ void RobotDriver::initSetup()
   node_->get_parameter<std::string>("robot_driver_planning_group", planning_group_);
   node_->get_parameter<bool>("robot_driver_publish_vel_cmd", publish_vel_cmd_);
 
-  RCLCPP_INFO(node_->get_logger(), "Using planning_group: %s", planning_group_);
+  RCLCPP_INFO(node_->get_logger(), "Using planning_group: %s", planning_group_.c_str());
 
   // get joint model group
   joint_model_group_ = robot_state_.getJointModelGroup(planning_group_);
@@ -119,19 +119,25 @@ void RobotDriver::initSetup()
   }
 
   // populate joint limits map
-  for (int i = 0; i < joint_names_.size(); ++i)
+  for (size_t i = 0; i < joint_names_.size(); ++i)
+  {
     joint_limits_map_.emplace(joint_names_[i], std::ref(joint_limits_[i]));
+  }
 
   // print joint names
   std::string names_str;
   for (const std::string& name : joint_names_)
+  {
     names_str += (names_str.empty() ? "" : ", ") + name;
+  }
   RCLCPP_INFO_STREAM(node_->get_logger(), "Joint names: [" << names_str << "]");
 
   // print joint limits
   RCLCPP_DEBUG(node_->get_logger(), "Joint limits:");
-  for (int i = 0; i < joint_names_.size(); ++i)
+  for (size_t i = 0; i < joint_names_.size(); ++i)
+  {
     RCLCPP_DEBUG_STREAM(node_->get_logger(), joint_names_[i] << ": " << joint_limits_[i]);
+  }
 
   // init publishers
   if (publish_vel_cmd_)
@@ -164,10 +170,14 @@ bool RobotDriver::init(int motion_port, int state_port)
   auto state_client_manager = std::make_shared<TcpClientManager>("state_client", robot_ip_, state_port);
 
   if (!motion_client_manager->init())
+  {
     return false;
+  }
 
   if (!state_client_manager->init())
+  {
     return false;
+  }
 
   motion_client_manager_ = motion_client_manager;
   state_client_manager_ = state_client_manager;
@@ -318,12 +328,17 @@ bool RobotDriver::sendVelocityCommand(const motion_control_msgs::msg::VelocityCo
   motion_control_msgs::msg::VelocityCommand vel_cmd_filt = vel_cmd;
 
   if (!enforceLimits(vel_cmd_filt))
+  {
     return false;
+  }
 
   // send velocity command
   bool rtn = sendVelocityCommand_internal(vel_cmd_filt);
-  if (!rtn) RCLCPP_ERROR(node_->get_logger(), "Failed to send velocity command");
-  RCLCPP_DEBUG(node_->get_logger(), "motion_cmd", "Sent velocity command");
+  if (!rtn) 
+  {
+    RCLCPP_ERROR(node_->get_logger(), "Failed to send velocity command");
+  }
+  RCLCPP_DEBUG(node_->get_logger(), "motion_cmd: Sent velocity command");
 
   // publish raw/filtered velocity command (if enabled)
   if (publish_vel_cmd_)
@@ -514,7 +529,9 @@ bool RobotDriver::sendRequest(industrial::typed_message::TypedMessage& typed_msg
 {
   SimpleMessage msg;
   if (!typed_msg.toRequest(msg))
+  {
     return false;
+  }
 
   return sendRequest(msg);
 }
@@ -523,7 +540,9 @@ bool RobotDriver::sendRequest(SimpleMessage& msg)
 {
   SimpleMessage reply;
   if (!motion_client_manager_->sendAndReceiveMsg(msg, reply))
+  {
     return false;
+  }
 
   if(!reply.validateMessage()) RCLCPP_DEBUG(node_->get_logger(), "Simple message validation failed!");
   if(reply.getReplyCode() == ReplyType::FAILURE) RCLCPP_DEBUG(node_->get_logger(), "Received reply code 'FAILURE'");

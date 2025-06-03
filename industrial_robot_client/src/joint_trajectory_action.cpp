@@ -525,7 +525,7 @@ private:
     bool withinGoalConstraints(const control_msgs::action::FollowJointTrajectory_FeedbackMessage::SharedPtr &msg,
                                const trajectory_msgs::msg::JointTrajectory &traj)
     {
-
+        (void)*msg;
         if (traj.points.empty())
         {
             RCLCPP_WARN(this->get_logger(), "Empty joint trajectory passed to check goal constraints, return false");

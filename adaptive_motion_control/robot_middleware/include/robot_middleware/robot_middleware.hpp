@@ -25,7 +25,7 @@
 #include "robot_middleware/staubli/staubli_driver.hpp"
 #include "robot_middleware/velocity_control_settings.hpp"
 
-#include "moveit/robot_model_loader/robot_model_loader.h"
+#include "moveit/robot_model_loader/robot_model_loader.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "simple_message/socket/tcp_server.hpp"
 

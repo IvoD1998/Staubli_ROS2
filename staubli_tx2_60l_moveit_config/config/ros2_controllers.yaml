@@ -24,3 +24,4 @@ manipulator_controller:
     state_interfaces:
       - position
       - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
