@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// Modified from original version in https://github.com/FAU-FAPS/adaptive_motion_control
+// Changes made to support CS9 and ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #include "robot_middleware/message_relay_handler/motion_relay_handler.hpp"
 
 using namespace industrial::joint_traj_pt_message;

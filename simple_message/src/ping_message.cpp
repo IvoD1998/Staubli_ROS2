@@ -28,6 +28,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+// Modified from original version in https://github.com/ros-industrial/industrial_core
+// Changes made to support ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #ifndef FLATHEADERS
 #include "simple_message/ping_message.hpp"
 #include "simple_message/byte_array.hpp"

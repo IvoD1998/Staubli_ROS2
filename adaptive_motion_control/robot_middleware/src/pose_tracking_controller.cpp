@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+// Modified from original version in https://github.com/FAU-FAPS/adaptive_motion_control
+// Changes made to support CS9 and ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #include "robot_middleware/pose_tracking_controller.hpp"
 #include "moveit/moveit_cpp/moveit_cpp.hpp"
 

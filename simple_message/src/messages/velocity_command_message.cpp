@@ -29,6 +29,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+// Modified from original version in https://github.com/ros-industrial/industrial_core
+// Changes made to support ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #include "simple_message/messages/velocity_command_message.hpp"
 #include "rclcpp/rclcpp.hpp"
 

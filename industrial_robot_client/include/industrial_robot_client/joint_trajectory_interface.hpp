@@ -28,6 +28,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+// Modified from original version in https://github.com/ros-industrial/industrial_core
+// Changes made to support ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
 #pragma once
 
 #include <map>

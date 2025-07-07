@@ -30,6 +30,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+// Modified from original version in https://github.com/FAU-FAPS/adaptive_motion_control
+// Changes made to support CS9 and ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #include "moveit_interface/moveit_interface.hpp"
 #include "rclcpp/rclcpp.hpp"
 

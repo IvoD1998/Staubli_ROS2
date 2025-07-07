@@ -15,6 +15,10 @@
  * limitations under the License.
  */
 
+// Modified from original version in https://github.com/FAU-FAPS/adaptive_motion_control and https://github.com/ros-industrial/staubli_val3_driver/tree/master
+// Changes made to support CS9 and ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #include "staubli_val3_driver/io_states.hpp"
 
 #include "simple_message/shared_types.hpp"

@@ -29,6 +29,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+// Modified from original version in https://github.com/ros-industrial/industrial_core
+// Changes made to support ROS 2 compatibility.
+// Copyright 2025 ACRO - KULeuven
+
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
