@@ -73,8 +73,8 @@
           
           if(l_bFinalPoint == true)
             // Confirm the completion of the trajectory execution
-            rosStatusMsg.robotStatus.nTrajectoryComplete = 1
             waitEndMove()
+            rosStatusMsg.robotStatus.nTrajectoryComplete = 1
           endIf
           if(bDebugMode and nDebugLevel<=6)
             l_jTmp=l_motion.jJointRx
